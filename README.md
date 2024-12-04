@@ -32,31 +32,36 @@ case and the department he want to go for , then we can view the details of the 
 
 ### Home page
 
-(picture)
+!["home page"](home.JPG) 
 
 
 ### sign-up page
 
-(picture)
+!["Sign up page"](sign-up.JPG) 
 
 
 ### sign-in page
 
-(picture)
+!["sign in page"](sign-in.JPG) 
 
 
 ### index page (welcome)
 
-(picture)
+!["index page"](main.JPG) 
 
 
 ### view all patients page
 
-(picture)
+!["all patient"](all-patients.JPG) 
 
+### add pateint page
 
+!["Image description"](add-pateints.jpg) 
 
 ### patient details page
 
-(picture)
+!["patients details"](pateint-details.jpg) 
 
+### edit patient details
+
+!["Image description"](edit-info-details.jpg) 
