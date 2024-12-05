@@ -1,0 +1,59 @@
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Edit details</h1>
+        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
+    <label for="patientName">Name:</label>
+        <input
+        type="text"
+        name="patientName"
+        id="patientName"
+        value="<%= listing.patientName %>"
+        />
+        <br>
+        
+    <label for="Age">Age:</label>
+        <input type="number"
+        name="age"
+        id="age"
+        value="<%= listing.age %>" 
+        min="0"
+        />
+        <br>
+        
+    <label for="id">ID:</label>
+        <input
+        type="number"
+        name="id"
+        id="id"
+        value="<%= listing.id %>"
+        min="0"
+        />
+        <br>
+        
+    <label for="gender">Gender</label>
+        <select id="gender" name="gender">
+            <option value="man">Man</option>
+            <option value="woman">Woman</option>
+        </select>
+        <br>
+    <label for="department">department</label>
+        <select id="department" name="department">
+            <option value="emergencyDepartment">Emergency Department</option>
+            <option value="surgicalDepartment">Surgical Department</option>
+            <option value="radiology">Radiology</option>
+            <option value="laboratory">Laboratory</option>
+            <option value="dermatology">Dermatology</option>
+        </select>
+
+    <label for="urgencyLevel">Urgency Level</label>
+        <select id="urgencyLevel" name="urgencyLevel">
+            <option value="critical">Critical</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
+            <option value="veryLow">Very Low</option>
+        </select>
+
+        <button type="submit">Edit Listing</button>
+    </form>
+    </body>

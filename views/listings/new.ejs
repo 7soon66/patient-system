@@ -1,0 +1,49 @@
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+    <h1>Add a new Patient</h1>
+
+    <form method="POST" action="/listings">
+    <label for="Name">Name:</label>
+    <input type="text" name="patientName" id="patientName" />
+    <br>
+
+    <label for="age">Age:</label>
+    <input type="number" name="age" id="age" min="0" />
+    <br>
+
+    <label for="id">ID:</label>
+    <input type="number" name="id" id="id" min="0" />
+    <br>
+
+    <label for="gender">Gender</label>
+    <select id="gender" name="gender">
+        <option value="man">Man</option>
+        <option value="woman">Woman</option>
+    </select>
+
+    <label for="department">Department</label>
+    <select id="department" name="department">
+        <option value="emergencyDepartment">Emergency Department</option>
+        <option value="surgicalDepartment">Surgical Department</option>
+        <option value="radiology">Radiology</option>
+        <option value="laboratory">Laboratory</option>
+        <option value="dermatology">Dermatology</option>
+    </select>
+
+    <label for="urgencyLevel">Urgency Level</label>
+    <select id="urgencyLevel" name="urgencyLevel">
+        <option value="critical">Critical</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+        <option value="veryLow">Very Low</option>
+    </select>
+
+    <label for="createdAt">Created At:</label>
+    <input type="date" id="createdAt" name="createdAt" value="<%= currentDate %>" disabled>
+
+
+    <label for="updatedAt">Updated At:</label>
+    <input type="date" id="updatedAt" name="updatedAt" value="<%= currentDate %>">
+
+</body>
