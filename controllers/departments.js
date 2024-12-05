@@ -10,6 +10,59 @@ const requireAdmin = (req, res, next) => {
   next()
 }
 
+// Routes/ API's/ Core Fuctionality
+
+// test
+      
+      router.get('/', async (req, res) => {
+        const patient = await Patient.find()
+        res.render('patients/index.ejs', {patient});
+      })
+
+      router.get('/new', async (req, res) => {
+        res.render('patients/new.ejs');
+      })
+
+      router.post('/', async (req, res) => {
+        req.body.owner = req.session.user._id;
+        await Patient.create(req.body);
+        res.redirect('/patients');
+      })
+
+      router.get('/:patientId', async(req, res) => {
+        const patient = await Patient.findById(req.params.patientId);
+        res.render('patients/show.ejs', { patient })
+      })
+
+      router.delete('/:patientId', async (req, res) => {
+        const patient = await Patient.findById(req.params.patientId);
+        if (patient.owner.equals(req.session.user._id)) {
+        await patient.deleteOne();
+        res.redirect('/patients');
+        } else {
+        res.send("You don't have permission to do that.");
+        }
+      })
+
+      router.get('/:patientId/edit', async (req, res) => {
+        const currentPatient = await Patient.findById(req.params.patientId);
+        res.render('patients/edit.ejs', {patient: currentPatient,});
+      })
+
+      router.put('/:patientId', async (req, res) => {
+        const currentPatient = await Patient.findById(req.params.patientId);
+        if (currentPatient.equals(req.session.user._id)) {
+        await currentPatient.updateOne(req.body);
+        res.redirect('/patients');
+        } else {
+        res.send("You don't have permission to do that.");
+        }
+      })
+
+
+
+
+
 // GET all departments
 router.get('/', async (req, res) => {
   try {
