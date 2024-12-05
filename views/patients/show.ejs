@@ -1,24 +1,24 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
 
-    <h1>A listing in <%= listing.patientName %></h1>
+    <h1>A listing in <%= patient.patientName %></h1>
 
     <h2>Patient details</h2>
     <ul>
-    <li> Name: <%= listing.patientName %></li>
-    <li>Age: $<%= listing.age %></li>
-    <li>cpr ID: <%= listing.cprId %></li>
-    <li><%= listing.gender %></li>
-    <li>Department: <%= listing.department %></li>
-    <li>Urgency Level: <%= listing.urgencyLevel %></li>
+    <li> Name: <%= patient.patientName %></li>
+    <li>Age: $<%= patient.age %></li>
+    <li>cpr ID: <%= patient.cprId %></li>
+    <li><%= patient.gender %></li>
+    <li>Department: <%= patient.department %></li>
+    <li>Urgency Level: <%= patient.urgencyLevel %></li>
     </ul>
     
-    <a href="/listings/<%= listing._id %>/edit">Edit Information</a>
+    <a href="/patients/<%= patient._id %>/edit">Edit Information</a>
     
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
     <button type="submit">Delete the Patient</button>
     </form>
-    <% } %>
+    <%  %>
 
 
 </body>
