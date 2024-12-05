@@ -3,37 +3,39 @@ const mongoose = require('mongoose')
 const PatientSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   age: {
     type: Number,
-    required: true,
+    required: true
   },
   gender: {
     type: String,
-    enum: ['Male','Female','Other'],
-    required: true,
+    enum: ['Male', 'Female', 'Other'],
+    required: true
   },
-  department: [
-    {type: mongoose.Schema.Types.ObjectId,
-    ref: 'Department'}
-  ],
+  department: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Department' }],
+  cprId: {
+    type: Number,
+    unique: true,
+    required: true
+  },
   urgencyLevel: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Urgency'
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   updatedAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    required: true
   }
 })
 
