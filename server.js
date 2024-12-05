@@ -9,6 +9,21 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 
+// upload
+const multer = require('multer')
+const path = require('path')
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'usersImage')
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
+
 // Import middleware
 const passUsertoView = require('./middleware/pass-user-to-view');
 const isSignedIn = require('./middleware/is-signed-in');
@@ -54,6 +69,15 @@ app.use("/patients",patientsController)
 app.get('/', (req, res) => {
   res.render('index.ejs');
 });
+
+// upload 
+app.get('/upload', (req, res) => {
+  res.render('upload')
+})
+
+app.post('/upload', upload.single('image'), (req, res) => {
+  res.send('Image Upload')
+})
 
 // Start server
 app.listen(PORT, () => {

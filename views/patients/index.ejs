@@ -3,12 +3,12 @@
 <h1>Here's all the Patients</h1>
 <ul>
     <% patients.forEach((patient) => { %>
-      <li>
-        Name: <%= patient.name %> | Age: <%= patient.age %> | Gender: <%= patient.gender %>
+        <li>
+        Name: <%= patient.name %> ID: <%= patient.id %>
         <a href="/patients/<%= patient._id %>">Details</a>
-      </li>
+        </li>
     <% }) %>
-  </ul>
+</ul>
 <a href="/patients/new">Add a new Patient</a>
 
 </body>

@@ -1,13 +1,13 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
     <h1>Edit details</h1>
-        <form action="/listings/<%= listing._id %>?_method=PUT" method="POST">
+        <form action="/patients/<%= patient._id %>?_method=PUT" method="POST">
     <label for="patientName">Name:</label>
         <input
         type="text"
         name="patientName"
         id="patientName"
-        value="<%= listing.patientName %>"
+        value="<%= patient.patientName %>"
         />
         <br>
         
@@ -15,17 +15,17 @@
         <input type="number"
         name="age"
         id="age"
-        value="<%= listing.age %>" 
+        value="<%= patient.age %>" 
         min="0"
         />
         <br>
         
-    <label for="id">ID:</label>
+    <label for="cprId">CPR ID:</label>
         <input
         type="number"
-        name="id"
-        id="id"
-        value="<%= listing.id %>"
+        name="cprId"
+        id="cprId"
+        value="<%= patient.id %>"
         min="0"
         />
         <br>
@@ -54,6 +54,6 @@
             <option value="veryLow">Very Low</option>
         </select>
 
-        <button type="submit">Edit Listing</button>
+        <button type="submit">Edit Patient</button>
     </form>
     </body>
