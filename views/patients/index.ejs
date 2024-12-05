@@ -2,13 +2,13 @@
     <%- include('../partials/_navbar.ejs') %>
 <h1>Here's all the Patients</h1>
 <ul>
-    <% listings.forEach((listing) => { %>
-        <li>
-        Name: <%= listing.name %> ID: <%= listing.id %>
-        <a href="/listings/<%= listing._id %>">Details</a>
-        </li>
+    <% patients.forEach((patient) => { %>
+      <li>
+        Name: <%= patient.name %> | Age: <%= patient.age %> | Gender: <%= patient.gender %>
+        <a href="/patients/<%= patient._id %>">Details</a>
+      </li>
     <% }) %>
-</ul>
-<a href="/listings/new">Add a new Patient</a>
+  </ul>
+<a href="/patients/new">Add a new Patient</a>
 
 </body>

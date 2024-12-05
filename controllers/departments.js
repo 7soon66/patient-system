@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const Department = require('../models/departments')
+const Department = require('../models/department')
 
 // Middleware (admin access)
 const requireAdmin = (req, res, next) => {

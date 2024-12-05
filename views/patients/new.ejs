@@ -2,7 +2,7 @@
     <%- include('../partials/_navbar.ejs') %>
     <h1>Add a new Patient</h1>
 
-    <form method="POST" action="/listings">
+    <form method="POST" action="/patients">
     <label for="Name">Name:</label>
     <input type="text" name="patientName" id="patientName" />
     <br>
@@ -39,11 +39,11 @@
         <option value="veryLow">Very Low</option>
     </select>
 
-    <label for="createdAt">Created At:</label>
+    <!-- <label for="createdAt">Created At:</label>
     <input type="date" id="createdAt" name="createdAt" value="<%= currentDate %>" disabled>
 
 
     <label for="updatedAt">Updated At:</label>
-    <input type="date" id="updatedAt" name="updatedAt" value="<%= currentDate %>">
+    <input type="date" id="updatedAt" name="updatedAt" value="<%= currentDate %>"> -->
 
 </body>

@@ -1,24 +1,20 @@
-const router=require("express").Router()
+const router = require("express").Router();
 
+const Patient = require("../models/patient");
 
-const Patient = require("../models/patients")
-//Import model
-const Listing=require("../models/patients")
-const { route } = require("./auth")
+// ... other routes ...
 
-router.get("/",async (req,res)=>{
-  const patients= await Patient.find()
-  res.render("patients/index.ejs",{patients})
-})
+// Get all patients
+router.get("/", async (req, res) => {
+  const patients = await Patient.find();
+  res.render("patients/index.ejs", { patients });
+});
 
+// New patient form
+router.get("/new", async (req, res) => {
+  res.render("patients/new.ejs");
+});
 
-router.get("/new",async(req,res)=>{
-  res.render("patients/new.ejs")
-})
+// ... other routes ...
 
-router.post("/", async(req,res)=>{
-  //it will be that our user is the owner so we asign the info that will be entered to that userid
-  req.body.owner=req.session.user._id
-  await Listing.create(req.body)
-  res.redirect("/patients")
-})
+module.exports = router;
