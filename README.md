@@ -56,12 +56,12 @@ case and the department he want to go for , then we can view the details of the 
 
 ### add pateint page
 
-!["Image description"](add-pateints.jpg) 
+!["Image description"](add-pateints.JPG) 
 
 ### patient details page
 
-!["patients details"](pateint-details.jpg) 
+!["patients details"](pateint-details.JPG) 
 
 ### edit patient details
 
-!["Image description"](edit-info-details.jpg) 
+!["Image description"](edit-info-details.JPG) 
