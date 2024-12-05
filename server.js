@@ -13,6 +13,7 @@ const morgan = require('morgan');
 const passUsertoView = require('./middleware/pass-user-to-view');
 const isSignedIn = require('./middleware/is-signed-in');
 
+
 // Import controllers
 const authCtrl = require('./controllers/auth.js');
 const departmentsController = require('./controllers/departments');

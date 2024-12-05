@@ -1,0 +1,25 @@
+<body>
+    <%- include('../partials/_navbar.ejs') %>
+
+    <h1>A listing in <%= listing.patientName %></h1>
+
+    <h2>Patient details</h2>
+    <ul>
+    <li> Name: <%= listing.patientName %></li>
+    <li>Age: $<%= listing.age %></li>
+    <li>ID: <%= listing.id %></li>
+    <li><%= listing.gender %></li>
+    <li>Department: <%= listing.department %></li>
+    <li>Urgency Level: <%= listing.urgencyLevel %></li>
+    </ul>
+    
+    <a href="/listings/<%= listing._id %>/edit">Edit Information</a>
+    
+    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete the Patient</button>
+    </form>
+    <% } %>
+
+
+</body>
+
