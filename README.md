@@ -25,7 +25,7 @@ case and the department he want to go for , then we can view the details of the 
 
 
 ## ERD:
-(picture)
+!["ERD diagram"](image-720.png)
 
 
 ## wireframes (prototype)
