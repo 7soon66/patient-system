@@ -1,58 +1,61 @@
-const dotenv = require('dotenv')
-dotenv.config()
+// Load environment variables
+const dotenv = require('dotenv');
+dotenv.config();
 
-const express = require('express')
-const passUsertoView = require('./middleware/pass-user-to-view')
-const app = express()
+// Import dependencies
+const express = require('express');
+const mongoose = require('mongoose');
+const session = require('express-session');
+const methodOverride = require('method-override');
+const morgan = require('morgan');
 
-const mongoose = require('mongoose')
-const methodOverride = require('method-override')
-const morgan = require('morgan')
-const session = require('express-session')
+// Import middleware
+const passUsertoView = require('./middleware/pass-user-to-view');
+const isSignedIn = require('./middleware/is-signed-in');
 
-// Set the port from environment variable or default to 3000
-const PORT = process.env.PORT ? process.env.PORT : '5000'
 
-mongoose.connect(process.env.MONGODB_URI)
+// Import controllers
+const authCtrl = require('./controllers/auth.js');
+const departmentsController = require('./controllers/departments');
+
+// Initialize Express app
+const app = express();
+
+// Configure port
+const PORT = process.env.PORT || 3000;
+
+// Connect to MongoDB
+mongoose.connect(process.env.MONGODB_URI);
 mongoose.connection.on('connected', () => {
-  console.log(`Connected to MongoDB Database: ${mongoose.connection.name}.`)
-})
+  console.log(`Connected to MongoDB Database: ${mongoose.connection.name}.`);
+});
 
-// Middlewares
-app.use(express.urlencoded({ extended: false }))
-app.use(methodOverride('_method'))
-app.use(morgan('dev'))
+// Middleware setup
+app.use(express.urlencoded({ extended: false }));
+app.use(methodOverride('_method'));
+app.use(morgan('dev'));
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
   })
-)
-app.use(passUsertoView)
+);
+app.use(passUsertoView);
 
-// Require Controllers
-const authCtrl = require('./controllers/auth.js')
-const isSignedIn = require('./middleware/is-signed-in.js')
+// Set view engine
+app.set('view engine', 'ejs');
 
-// Use Controller
-app.use('/auth', authCtrl)
+// Use controllers
+app.use('/auth', authCtrl);
+app.use('/departments', departmentsController);
 
-// Root Route
-app.get('/', async (req, res) => {
-  res.render('index.ejs')
-})
-
-// Route for Testing
-// VIP-Lounge
-app.get("/vip-lounge", isSignedIn, (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.send("Sorry, no guests allowed.");
-  }
+// Root route
+app.get('/', (req, res) => {
+  res.render('index.ejs');
 });
-// Listen
+
+// Start server
 app.listen(PORT, () => {
-  console.log(`The express app is ready on port ${PORT}`)
-})
+  console.log(`The Express app is running on port ${PORT}`);
+});
