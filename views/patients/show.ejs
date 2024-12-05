@@ -1,7 +1,9 @@
 <body>
     <%- include('../partials/_navbar.ejs') %>
 
+
     <h1> patients <%= patient.patientName %></h1>
+
 
     <h2>Patient details</h2>
     <ul>
@@ -18,7 +20,7 @@
     <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
     <button type="submit">Delete the Patient</button>
     </form>
-    <% } %>
+    <%  %>
 
 
 </body>
