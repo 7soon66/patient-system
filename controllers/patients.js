@@ -11,7 +11,7 @@ const requireAdmin = (req, res, next) => {
   res.status(403).send('Access denied. Admins only.')
 }
 
-// GET all patients (Admin only)
+// GET all patients (Admins only)
 router.get('/', isSignedIn, requireAdmin, async (req, res) => {
   try {
     const patients = await Patient.find().populate('department urgencyLevel')
@@ -24,13 +24,15 @@ router.get('/', isSignedIn, requireAdmin, async (req, res) => {
 // GET form to create a new patient (Admin only)
 router.get('/new', isSignedIn, requireAdmin, async (req, res) => {
   try {
-    res.render('patients/new.ejs')
+    const currentDate = new Date().toISOString().split('T')[0]
+    res.render('patients/new.ejs', { currentDate })
   } catch (err) {
+    console.error('Error rendering new patient form:', err)
     res.status(500).send('Error loading form')
   }
 })
 
-// POST create a new patient (Admin only)
+// POST create a new patient (Admins only)
 router.post('/', isSignedIn, requireAdmin, async (req, res) => {
   try {
     req.body.userId = req.session.user._id // Assign admin as the creator

@@ -1,14 +1,23 @@
+<head>
+  <title>Patients</title>
+</head>
 <body>
-    <%- include('../partials/_navbar.ejs') %>
-<h1>Here's all the Patients</h1>
-<ul>
-    <% patients.forEach((patient) => { %>
-        <li>
-        Name: <%= patient.name %> ID: <%= patient.id %>
-        <a href="/patients/<%= patient._id %>">Details</a>
-        </li>
-    <% }) %>
-</ul>
-<a href="/patients/new">Add a new Patient</a>
+  <h1>Patients List</h1>
 
+  <% if (patients && patients.length > 0) { %>
+  <ul>
+    <% patients.forEach(patient => { %>
+    <li>
+      <strong>Name:</strong> <%= patient.name %> | <strong>Age:</strong> <%=
+      patient.age %> | <strong>Gender:</strong> <%= patient.gender %>
+      <br />
+      <a href="/patients/<%= patient._id %>">View Details</a>
+    </li>
+    <% }) %>
+  </ul>
+  <% } else { %>
+  <p>No patients found.</p>
+  <% } %>
+
+  <a href="/patients/new">Add New Patient</a>
 </body>
