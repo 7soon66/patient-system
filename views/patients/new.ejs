@@ -40,7 +40,7 @@
     <div>
       <label for="urgencyLevel">Urgency Level:</label>
       <select id="urgencyLevel" name="urgencyLevel" required>
-        <% urgencys.forEach(urgency => { %>
+        <% urgencies.forEach(urgency => { %>
         <option value="<%= urgency._id %>"><%= urgency.level %></option>
         <% }); %>
       </select>

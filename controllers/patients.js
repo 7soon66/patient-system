@@ -27,9 +27,9 @@ router.get('/', isSignedIn, requireAdmin, async (req, res) => {
 router.get('/new', isSignedIn, requireAdmin, async (req, res) => {
   try {
     const departments = await Department.find()
-    const urgencys = await Urgency.find()
+    const urgencies = await Urgency.find()
     const currentDate = new Date().toISOString().split('T')[0]
-    res.render('patients/new.ejs', { departments, urgencys, currentDate })
+    res.render('patients/new.ejs', { departments, urgencies, currentDate })
   } catch (err) {
     console.error('Error rendering new patient form:', err)
     res.status(500).send('Error loading form')
@@ -39,7 +39,7 @@ router.get('/new', isSignedIn, requireAdmin, async (req, res) => {
 // POST create a new patient (Admins only)
 router.post('/', isSignedIn, requireAdmin, async (req, res) => {
   try {
-    req.body.userId = req.session.user._id // Assign admin as the creator
+    req.body.userId = req.session.user._id
     await Patient.create(req.body)
     res.redirect('/patients')
   } catch (err) {
