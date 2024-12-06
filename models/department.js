@@ -1,37 +1,5 @@
 const mongoose = require('mongoose')
 
-const departmentSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    enum: [
-      'Cardiology',
-      'Neurology',
-      'Orthopedics',
-      'Gastroenterology',
-      'Dermatology',
-      'Pediatrics',
-      'Oncology',
-      'Radiology',
-      'Emergency',
-      'Psychiatry',
-      'Urology',
-      'Nephrology',
-      'Endocrinology',
-      'Ophthalmology',
-      'ENT',
-      'Pulmonology',
-      'Rheumatology'
-    ]
-  },
-  description: {
-    type: String,
-    required: true
-  }
-})
-
-// Predefine department descriptions
 const departmentDescriptions = {
   Cardiology: 'Handles conditions related to the heart and blood vessels.',
   Neurology: 'Cares for disorders of the brain and nervous system.',
@@ -52,6 +20,19 @@ const departmentDescriptions = {
   Rheumatology: 'Focuses on joint, muscle, and autoimmune diseases.'
 }
 
+const departmentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    unique: true,
+    enum: Object.keys(departmentDescriptions)
+  },
+  description: {
+    type: String,
+    required: true
+  }
+})
+
 // Middleware to auto-assign description
 departmentSchema.pre('save', function (next) {
   if (departmentDescriptions[this.name]) {
@@ -59,6 +40,21 @@ departmentSchema.pre('save', function (next) {
   }
   next()
 })
+
+// Static method to inject predefined departments
+departmentSchema.statics.initialize = async function () {
+  const existingDepartments = await this.find()
+  if (existingDepartments.length === 0) {
+    const departments = Object.entries(departmentDescriptions).map(
+      ([name, description]) => ({
+        name,
+        description
+      })
+    )
+    await this.insertMany(departments)
+    console.log('Predefined departments injected into the database.')
+  }
+}
 
 const Department = mongoose.model('Department', departmentSchema)
 

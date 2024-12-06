@@ -4,59 +4,78 @@
 <body>
   <h1>Create New Patient</h1>
   <form action="/patients" method="POST">
-    <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-    </div>
+    <!-- Patient Name -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required />
 
-    <div>
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" min="0" required />
-    </div>
+    <!-- Patient Age -->
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required />
 
-    <div>
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-        <option value="Other">Other</option>
-      </select>
-    </div>
+    <!-- Patient Gender -->
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="" disabled selected>Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
 
-    <div>
-      <label for="cprId">CPR ID:</label>
-      <input type="number" id="cprId" name="cprId" required />
-    </div>
+    <!-- CPR ID Field -->
+    <label for="cprId">CPR ID:</label>
+    <input type="text" id="cprId" name="cprId" required />
 
-    <div>
-      <label for="department">Department:</label>
-      <select id="department" name="department" required>
-        <% departments.forEach(department => { %>
-        <option value="<%= department._id %>"><%= department.name %></option>
-        <% }); %>
-      </select>
-    </div>
+    <!-- Department Dropdown -->
+    <label for="department">Department:</label>
+    <select
+      id="department"
+      name="department"
+      required
+      onchange="updateDescription()"
+    >
+      <option value="" disabled selected>Select a Department</option>
+      <% departments.forEach(department => { %>
+      <option
+        value="<%= department._id %>"
+        data-description="<%= department.description %>"
+      >
+        <%= department.name %>
+      </option>
+      <% }); %>
+    </select>
 
-    <div>
-      <label for="urgencyLevel">Urgency Level:</label>
-      <select id="urgencyLevel" name="urgencyLevel" required>
-        <% urgencies.forEach(urgency => { %>
-        <option value="<%= urgency._id %>"><%= urgency.level %></option>
-        <% }); %>
-      </select>
-    </div>
+    <!-- Display Department Description -->
+    <p
+      id="departmentDescription"
+      style="margin-top: 10px; font-style: italic; color: #555"
+    >
+      <!-- Placeholder for department description -->
+      Select a department to see its description.
+    </p>
 
-    <div>
-      <label for="createdAt">Created At:</label>
-      <input
-        type="date"
-        id="createdAt"
-        name="createdAt"
-        value="<%= currentDate %>"
-        disabled
-      />
-    </div>
+    <!-- Urgency Level -->
+    <label for="urgencyLevel">Urgency Level:</label>
+    <select id="urgencyLevel" name="urgencyLevel" required>
+      <option value="" disabled selected>Select Urgency Level</option>
+      <% urgencies.forEach(urgency => { %>
+      <option value="<%= urgency._id %>"><%= urgency.level %></option>
+      <% }); %>
+    </select>
 
-    <button type="submit">Create Patient</button>
+    <!-- Form Submit -->
+    <button type="submit">Submit</button>
   </form>
+
+  <script>
+    // Update Department Description Dynamically
+    function updateDescription() {
+      const departmentSelect = document.getElementById('department')
+      const selectedOption =
+        departmentSelect.options[departmentSelect.selectedIndex]
+      const description =
+        selectedOption.getAttribute('data-description') ||
+        'No description available'
+      document.getElementById('departmentDescription').innerText = description
+    }
+  </script>
 </body>

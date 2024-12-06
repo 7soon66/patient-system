@@ -17,7 +17,7 @@ const requireAdmin = (req, res, next) => {
 router.get('/', isSignedIn, requireAdmin, async (req, res) => {
   try {
     const patients = await Patient.find().populate('department urgencyLevel')
-    res.render('patients/index.ejs', { patients })
+    res.render('patients/index.ejs', { patients, user: req.session.user })
   } catch (err) {
     res.status(500).send('Error fetching patients')
   }
@@ -39,37 +39,58 @@ router.get('/new', isSignedIn, requireAdmin, async (req, res) => {
 // POST create a new patient (Admins only)
 router.post('/', isSignedIn, requireAdmin, async (req, res) => {
   try {
-    req.body.userId = req.session.user._id
-    await Patient.create(req.body)
+    const { name, age, gender, cprId, department, urgencyLevel } = req.body
+
+    if (!name || !age || !gender || !cprId || !department || !urgencyLevel) {
+      return res.status(400).send('All fields are required.')
+    }
+
+    const [departmentExists, urgencyExists] = await Promise.all([
+      Department.findById(department),
+      Urgency.findById(urgencyLevel)
+    ])
+
+    if (!departmentExists) return res.status(400).send('Invalid department ID.')
+    if (!urgencyExists) return res.status(400).send('Invalid urgency level ID.')
+
+    const patientData = { ...req.body, userId: req.session.user._id }
+    await Patient.create(patientData)
+
     res.redirect('/patients')
   } catch (err) {
-    res.status(500).send('Error creating patient')
+    console.error('Error creating patient:', err)
+    res.status(500).send('Error creating patient. Please try again.')
   }
 })
 
 // GET single patient details (Admin and patient can view their own)
 router.get('/:patientId', isSignedIn, async (req, res) => {
   try {
-    const patient = await Patient.findById(req.params.patientId).populate(
-      'department urgencyLevel userId'
-    )
+    console.log('Session user:', req.session.user);
+
+    const patient = await Patient.findById(req.params.patientId)
+      .populate('department')
+      .populate('urgencyLevel')
+      .populate('userId');
 
     if (!patient) {
-      return res.status(404).send('Patient not found')
+      return res.status(404).send('Patient not found');
     }
 
+    // Access control: Admin or the patient themselves
     if (
-      req.session.user.role === 'Admin' ||
+      req.session.user.role.toLowerCase() === 'admin' ||
       patient.userId.equals(req.session.user._id)
     ) {
-      res.render('patients/show.ejs', { patient })
+      res.render('patients/show.ejs', { patient, user: req.session.user });
     } else {
-      res.status(403).send('Access denied.')
+      res.status(403).send('Access denied.');
     }
   } catch (err) {
-    res.status(500).send('Error fetching patient details')
+    console.error('Error fetching patient details:', err);
+    res.status(500).send('Error fetching patient details');
   }
-})
+});
 
 // DELETE a patient (Admin only)
 router.delete('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
@@ -82,17 +103,26 @@ router.delete('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
 })
 
 // GET form to edit a patient (Admin only)
-router.get('/:patientId/edit', isSignedIn, requireAdmin, async (req, res) => {
+router.get('/:id/edit', isSignedIn, requireAdmin, async (req, res) => {
   try {
-    const patient = await Patient.findById(req.params.patientId)
+    const patient = await Patient.findById(req.params.id)
+      .populate('department')
+      .populate('urgencyLevel');
+      
     if (!patient) {
-      return res.status(404).send('Patient not found')
+      return res.status(404).send('Patient not found.');
     }
-    res.render('patients/edit.ejs', { patient })
+
+    const departments = await Department.find();
+    const urgencies = await Urgency.find();
+
+    res.render('patients/edit.ejs', { patient, departments, urgencies });
   } catch (err) {
-    res.status(500).send('Error loading edit form')
+    console.error('Error rendering edit form:', err);
+    res.status(500).send('Error rendering edit form.');
   }
-})
+});
+
 
 // PUT update a patient (Admin only)
 router.put('/:patientId', isSignedIn, requireAdmin, async (req, res) => {

@@ -2,17 +2,26 @@
   <title>Patient Details</title>
 </head>
 <body>
+  <%- include('../partials/_navbar.ejs') %>
+
   <h1>Patient Details</h1>
+
   <p><strong>Name:</strong> <%= patient.name %></p>
   <p><strong>Age:</strong> <%= patient.age %></p>
   <p><strong>Gender:</strong> <%= patient.gender %></p>
   <p><strong>Department:</strong> <%= patient.department.name %></p>
-  <p><strong>Urgency Level:</strong> <%= patient.urgencyLevel.level %></p>
-  <p><strong>Created At:</strong> <%= patient.createdAt.toDateString() %></p>
-  <p><strong>Updated At:</strong> <%= patient.updatedAt.toDateString() %></p>
-  <a href="/patients/<%= patient._id %>/edit">Edit</a>
-  <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete</button>
-  </form>
-  <a href="/patients">Back to All Patients</a>
+
+  <% if (user && user.role === 'Admin') { %>
+    <p><strong>CPR ID:</strong> <%= patient.cprId %></p>
+    <p><strong>Urgency Level:</strong> <%= patient.urgencyLevel.level %></p>
+    <p><strong>Created At:</strong> <%= patient.createdAt.toLocaleString() %></p>
+    <p><strong>Updated At:</strong> <%= patient.updatedAt.toLocaleString() %></p>
+
+    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete</button>
+    </form>
+    <a href="/patients/<%= patient._id %>/edit">Edit</a>
+  <% } %>
+
+  <a href="/patients">Back to Patients List</a>
 </body>

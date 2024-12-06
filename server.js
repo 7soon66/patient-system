@@ -8,20 +8,12 @@ const mongoose = require('mongoose')
 const session = require('express-session')
 const methodOverride = require('method-override')
 const morgan = require('morgan')
-const seedData = require('./seedData')
-
-// File upload configuration
 const multer = require('multer')
 const path = require('path')
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'usersImage')
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname))
-  }
-})
-const upload = multer({ storage: storage })
+
+// Import models
+const Department = require('./models/department')
+const Urgency = require('./models/urgency')
 
 // Import middleware
 const passUsertoView = require('./middleware/pass-user-to-view')
@@ -38,16 +30,28 @@ const app = express()
 // Configure port
 const PORT = process.env.PORT || 3000
 
+// File upload configuration
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'usersImage')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+const upload = multer({ storage: storage })
+
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log(`Connected to MongoDB Database: ${mongoose.connection.name}.`)
 
-    // Seed the database after a successful connection
-    await seedData()
+    // Initialize departments dynamically
+    await Department.initialize()
+    await Urgency.initialize()
 
-    // Once seeding is complete, start the server
+    // Start the server
     app.listen(PORT, () => {
       console.log(`The Express app is running on port ${PORT}`)
     })
@@ -82,7 +86,7 @@ app.get('/', (req, res) => {
   res.render('index.ejs')
 })
 
-// upload
+// Upload route
 app.get('/upload', (req, res) => {
   res.render('upload')
 })
