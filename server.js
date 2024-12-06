@@ -31,8 +31,8 @@ const isSignedIn = require('./middleware/is-signed-in');
 
 // Import controllers
 const authCtrl = require('./controllers/auth.js');
-const departmentsController = require('./controllers/departments');
-const patientsController = require('./controllers/patients');
+const departmentCtrl = require('./controllers/departments.js');
+const patientCtrl= require('./controllers/patients.js');
 
 // Initialize Express app
 const app = express();
@@ -64,8 +64,8 @@ app.set('view engine', 'ejs');
 
 // Use controllers
 app.use('/auth', authCtrl);
-app.use('/departments', departmentsController);
-app.use('/patients', patientsController);
+app.use('/departments', departmentCtrl);
+app.use('/patients', patientCtrl);
 
 // Root route
 app.get('/', (req, res) => {

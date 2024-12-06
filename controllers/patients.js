@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const Patient = require('../models/patients.js')
+const Patient = require('../models/patient')
+const Department = require('../models/department')
+const Urgency = require('../models/urgency')
 const isSignedIn = require('../middleware/is-signed-in')
 
 // Middleware for admin-only access
@@ -24,8 +26,10 @@ router.get('/', isSignedIn, requireAdmin, async (req, res) => {
 // GET form to create a new patient (Admin only)
 router.get('/new', isSignedIn, requireAdmin, async (req, res) => {
   try {
+    const departments = await Department.find()
+    const urgencys = await Urgency.find()
     const currentDate = new Date().toISOString().split('T')[0]
-    res.render('patients/new.ejs', { currentDate })
+    res.render('patients/new.ejs', { departments, urgencys, currentDate })
   } catch (err) {
     console.error('Error rendering new patient form:', err)
     res.status(500).send('Error loading form')
@@ -43,7 +47,7 @@ router.post('/', isSignedIn, requireAdmin, async (req, res) => {
   }
 })
 
-// GET single patient details (Patients and Admins)
+// GET single patient details (Admin and patient can view their own)
 router.get('/:patientId', isSignedIn, async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.patientId).populate(
@@ -54,7 +58,6 @@ router.get('/:patientId', isSignedIn, async (req, res) => {
       return res.status(404).send('Patient not found')
     }
 
-    // Check if user is admin or owner (patient can only view their own record)
     if (
       req.session.user.role === 'Admin' ||
       patient.userId.equals(req.session.user._id)

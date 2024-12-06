@@ -1,59 +1,48 @@
 <body>
-    <%- include('../partials/_navbar.ejs') %>
-    <h1>Edit details</h1>
-        <form action="/patients/<%= patient._id %>?_method=PUT" method="POST">
-    <label for="patientName">Name:</label>
-        <input
-        type="text"
-        name="patientName"
-        id="patientName"
-        value="<%= patient.patientName %>"
-        />
-        <br>
-        
-    <label for="Age">Age:</label>
-        <input type="number"
-        name="age"
-        id="age"
-        value="<%= patient.age %>" 
-        min="0"
-        />
-        <br>
-        
-    <label for="cprId">CPR ID:</label>
-        <input
-        type="number"
-        name="cprId"
-        id="cprId"
-        value="<%= patient.id %>"
-        min="0"
-        />
-        <br>
-        
-    <label for="gender">Gender</label>
-        <select id="gender" name="gender">
-            <option value="man">Man</option>
-            <option value="woman">Woman</option>
+<%- include('../partials/_navbar.ejs') %>
+<h1>Edit details</h1>
+<form action="/patients/<%= patient._id %>?_method=PUT" method="POST">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<%= patient.name %>" required>
+    </div>
+    
+    <div>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="<%= patient.age %>" required>
+    </div>
+    
+    <div>
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+        <option value="Male" <%= patient.gender === 'Male' ? 'selected' : '' %>>Male</option>
+        <option value="Female" <%= patient.gender === 'Female' ? 'selected' : '' %>>Female</option>
+        <option value="Other" <%= patient.gender === 'Other' ? 'selected' : '' %>>Other</option>
         </select>
-        <br>
-    <label for="department">department</label>
-        <select id="department" name="department">
-            <option value="emergencyDepartment">Emergency Department</option>
-            <option value="surgicalDepartment">Surgical Department</option>
-            <option value="radiology">Radiology</option>
-            <option value="laboratory">Laboratory</option>
-            <option value="dermatology">Dermatology</option>
+    </div>
+    
+    <div>
+        <label for="department">Department:</label>
+        <select id="department" name="department" required>
+        <% departments.forEach(department => { %>
+            <option value="<%= department._id %>" <%= patient.department.equals(department._id) ? 'selected' : '' %>>
+            <%= department.name %>
+            </option>
+        <% }); %>
         </select>
-
-    <label for="urgencyLevel">Urgency Level</label>
-        <select id="urgencyLevel" name="urgencyLevel">
-            <option value="critical">Critical</option>
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
-            <option value="low">Low</option>
-            <option value="veryLow">Very Low</option>
+    </div>
+    
+    <div>
+        <label for="urgencyLevel">Urgency Level:</label>
+        <select id="urgencyLevel" name="urgencyLevel" required>
+        <% urgencys.forEach(urgency => { %>
+            <option value="<%= urgency._id %>" <%= patient.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
+            <%= urgency.level %>
+            </option>
+        <% }); %>
         </select>
-
-        <button type="submit">Edit Patient</button>
-    </form>
-    </body>
+    </div>
+    
+    <button type="submit">Update Patient</button>
+    </form> 
+</body>

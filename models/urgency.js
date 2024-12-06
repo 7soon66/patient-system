@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const urgencySchema = new mongoose.Schema({
   level: {
     type: String,
-    enum: ['Basic', 'Intermediate', 'Intensive'], // Levels of urgency
+    enum: ['Basic', 'Intermediate', 'Intensive'],
     required: true
   }
 })

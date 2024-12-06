@@ -1,23 +1,41 @@
 <head>
-  <title>Patients</title>
+  <title>All Patients</title>
 </head>
 <body>
-  <h1>Patients List</h1>
-
-  <% if (patients && patients.length > 0) { %>
-  <ul>
-    <% patients.forEach(patient => { %>
-    <li>
-      <strong>Name:</strong> <%= patient.name %> | <strong>Age:</strong> <%=
-      patient.age %> | <strong>Gender:</strong> <%= patient.gender %>
-      <br />
-      <a href="/patients/<%= patient._id %>">View Details</a>
-    </li>
-    <% }) %>
-  </ul>
-  <% } else { %>
-  <p>No patients found.</p>
-  <% } %>
-
-  <a href="/patients/new">Add New Patient</a>
+  <h1>All Patients</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Department</th>
+        <th>Urgency Level</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% patients.forEach(patient => { %>
+      <tr>
+        <td><%= patient.name %></td>
+        <td><%= patient.age %></td>
+        <td><%= patient.gender %></td>
+        <td><%= patient.department.name %></td>
+        <td><%= patient.urgencyLevel.level %></td>
+        <td>
+          <a href="/patients/<%= patient._id %>">View</a>
+          <a href="/patients/<%= patient._id %>/edit">Edit</a>
+          <form
+            action="/patients/<%= patient._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+      <% }); %>
+    </tbody>
+  </table>
+  <a href="/patients/new">Create New Patient</a>
 </body>

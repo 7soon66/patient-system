@@ -14,7 +14,10 @@ const patientSchema = new mongoose.Schema({
     enum: ['Male', 'Female', 'Other'],
     required: true
   },
-  department: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Department' }],
+  department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Department'
+  },
   cprId: {
     type: Number,
     unique: true,
