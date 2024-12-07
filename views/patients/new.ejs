@@ -1,18 +1,17 @@
 <head>
   <title>Create New Patient</title>
 </head>
+
 <body>
   <h1>Create New Patient</h1>
   <form action="/patients" method="POST">
-    <!-- Patient Name -->
+
     <label for="name">Name:</label>
     <input type="text" id="name" name="name" required />
 
-    <!-- Patient Age -->
     <label for="age">Age:</label>
     <input type="number" id="age" name="age" required />
 
-    <!-- Patient Gender -->
     <label for="gender">Gender:</label>
     <select id="gender" name="gender" required>
       <option value="" disabled selected>Select Gender</option>
@@ -21,39 +20,23 @@
       <option value="Other">Other</option>
     </select>
 
-    <!-- CPR ID Field -->
     <label for="cprId">CPR ID:</label>
     <input type="text" id="cprId" name="cprId" required />
 
-    <!-- Department Dropdown -->
     <label for="department">Department:</label>
-    <select
-      id="department"
-      name="department"
-      required
-      onchange="updateDescription()"
-    >
+    <select id="department" name="department" required onchange="updateDescription()">
       <option value="" disabled selected>Select a Department</option>
       <% departments.forEach(department => { %>
-      <option
-        value="<%= department._id %>"
-        data-description="<%= department.description %>"
-      >
+      <option value="<%= department._id %>" data-description="<%= department.description %>">
         <%= department.name %>
       </option>
       <% }); %>
     </select>
 
-    <!-- Display Department Description -->
-    <p
-      id="departmentDescription"
-      style="margin-top: 10px; font-style: italic; color: #555"
-    >
-      <!-- Placeholder for department description -->
+    <p id="departmentDescription" style="margin-top: 10px; font-style: italic; color: #555">
       Select a department to see its description.
     </p>
 
-    <!-- Urgency Level -->
     <label for="urgencyLevel">Urgency Level:</label>
     <select id="urgencyLevel" name="urgencyLevel" required>
       <option value="" disabled selected>Select Urgency Level</option>
@@ -62,12 +45,10 @@
       <% }); %>
     </select>
 
-    <!-- Form Submit -->
     <button type="submit">Submit</button>
   </form>
 
   <script>
-    // Update Department Description Dynamically
     function updateDescription() {
       const departmentSelect = document.getElementById('department')
       const selectedOption =

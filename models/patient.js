@@ -39,11 +39,19 @@ const patientSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  } 
+  },
+  visitationLogs: [
+    {
+      date: { type: Date, default: Date.now },
+      department: { type: mongoose.Schema.Types.ObjectId, ref: 'Department' },
+      urgencyLevel: { type: mongoose.Schema.Types.ObjectId, ref: 'Urgency' },
+      summary: { type: String, default: '' },
+    },
+  ],
 },
 { timestamps: true }
 )
 
-const Patient = mongoose.model('Patient', PatientSchema)
+const Patient = mongoose.model('Patient', patientSchema)
 
 module.exports = Patient

@@ -1,6 +1,7 @@
 <head>
   <title>Edit Patient</title>
 </head>
+
 <body>
   <%- include('../partials/_navbar.ejs') %>
 
@@ -32,9 +33,9 @@
     <select id="department" name="department" required onchange="updateDescription()">
       <option value="" disabled>Select a Department</option>
       <% departments.forEach(department => { %>
-        <option value="<%= department._id %>" data-description="<%= department.description %>" <%= patient.department._id.equals(department._id) ? "selected" : "" %>>
-          <%= department.name %>
-        </option>
+      <option value="<%= department._id %>" data-description="<%= department.description %>" <%= patient.department._id.equals(department._id) ? "selected" : "" %>>
+        <%= department.name %>
+      </option>
       <% }); %>
     </select>
     <p id="departmentDescription" style="margin-top: 10px; font-style: italic;">
@@ -46,9 +47,9 @@
     <select id="urgencyLevel" name="urgencyLevel" required>
       <option value="" disabled>Select Urgency Level</option>
       <% urgencies.forEach(urgency => { %>
-        <option value="<%= urgency._id %>" <%= patient.urgencyLevel._id.equals(urgency._id) ? "selected" : "" %>>
-          <%= urgency.level %>
-        </option>
+      <option value="<%= urgency._id %>" <%= patient.urgencyLevel._id.equals(urgency._id) ? "selected" : "" %>>
+        <%= urgency.level %>
+      </option>
       <% }); %>
     </select>
 
@@ -74,4 +75,5 @@
     document.getElementById('department').addEventListener('change', updateDescription);
   </script>
 </body>
+
 </html>

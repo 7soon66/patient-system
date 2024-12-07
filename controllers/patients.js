@@ -63,18 +63,42 @@ router.post('/', isSignedIn, requireAdmin, async (req, res) => {
   }
 })
 
+router.get('/me', isSignedIn, async (req, res) => {
+  try {
+    // Ensure the logged-in user is a patient
+    if (req.session.user.role !== 'Patient') {
+      return res.status(403).send('Access denied.')
+    }
+
+    // Find the patient by their CPR ID stored in the session's username
+    const patient = await Patient.findOne({ cprId: req.session.user.username })
+      .populate('department')
+      .populate('urgencyLevel')
+      .populate('userId')
+
+    if (!patient) {
+      return res.status(404).send('Patient not found.')
+    }
+
+    res.render('patients/show.ejs', { patient, user: req.session.user })
+  } catch (err) {
+    console.error('Error fetching patient details:', err)
+    res.status(500).send('Error fetching patient details.')
+  }
+})
+
 // GET single patient details (Admin and patient can view their own)
 router.get('/:patientId', isSignedIn, async (req, res) => {
   try {
-    console.log('Session user:', req.session.user);
+    console.log('Session user:', req.session.user)
 
     const patient = await Patient.findById(req.params.patientId)
       .populate('department')
       .populate('urgencyLevel')
-      .populate('userId');
+      .populate('userId')
 
     if (!patient) {
-      return res.status(404).send('Patient not found');
+      return res.status(404).send('Patient not found')
     }
 
     // Access control: Admin or the patient themselves
@@ -82,15 +106,15 @@ router.get('/:patientId', isSignedIn, async (req, res) => {
       req.session.user.role.toLowerCase() === 'admin' ||
       patient.userId.equals(req.session.user._id)
     ) {
-      res.render('patients/show.ejs', { patient, user: req.session.user });
+      res.render('patients/show.ejs', { patient, user: req.session.user })
     } else {
-      res.status(403).send('Access denied.');
+      res.status(403).send('Access denied.')
     }
   } catch (err) {
-    console.error('Error fetching patient details:', err);
-    res.status(500).send('Error fetching patient details');
+    console.error('Error fetching patient details:', err)
+    res.status(500).send('Error fetching patient details')
   }
-});
+})
 
 // DELETE a patient (Admin only)
 router.delete('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
@@ -107,22 +131,21 @@ router.get('/:id/edit', isSignedIn, requireAdmin, async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.id)
       .populate('department')
-      .populate('urgencyLevel');
-      
+      .populate('urgencyLevel')
+
     if (!patient) {
-      return res.status(404).send('Patient not found.');
+      return res.status(404).send('Patient not found.')
     }
 
-    const departments = await Department.find();
-    const urgencies = await Urgency.find();
+    const departments = await Department.find()
+    const urgencies = await Urgency.find()
 
-    res.render('patients/edit.ejs', { patient, departments, urgencies });
+    res.render('patients/edit.ejs', { patient, departments, urgencies })
   } catch (err) {
-    console.error('Error rendering edit form:', err);
-    res.status(500).send('Error rendering edit form.');
+    console.error('Error rendering edit form:', err)
+    res.status(500).send('Error rendering edit form.')
   }
-});
-
+})
 
 // PUT update a patient (Admin only)
 router.put('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
