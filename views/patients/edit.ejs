@@ -5,75 +5,90 @@
 <body>
   <%- include('../partials/_navbar.ejs') %>
 
-  <h1>Edit Patient Details</h1>
+  <h1>Edit Patient</h1>
 
   <form action="/patients/<%= patient._id %>?_method=PUT" method="POST">
-    <!-- Name -->
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<%= patient.name %>" required>
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" value="<%= patient.name %>" required>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" value="<%= patient.age %>" required>
+    </div>
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="Male" <%= patient.gender === 'Male' ? 'selected' : '' %>>Male</option>
+        <option value="Female" <%= patient.gender === 'Female' ? 'selected' : '' %>>Female</option>
+        <option value="Other" <%= patient.gender === 'Other' ? 'selected' : '' %>>Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="cprId">CPR ID:</label>
+      <input type="text" id="cprId" name="cprId" value="<%= patient.cprId %>" required>
+    </div>
+    <div>
+      <label for="department">Department:</label>
+      <select id="department" name="department" required>
+        <% departments.forEach(department => { %>
+        <option value="<%= department._id %>" <%= patient.department.equals(department._id) ? 'selected' : '' %>>
+          <%= department.name %> - <%= department.description %>
+        </option>
+        <% }) %>
+      </select>
+    </div>
+    <div>
+      <label for="urgencyLevel">Urgency Level:</label>
+      <select id="urgencyLevel" name="urgencyLevel" required>
+        <% urgencies.forEach(urgency => { %>
+        <option value="<%= urgency._id %>" <%= patient.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
+          <%= urgency.level %>
+        </option>
+        <% }) %>
+      </select>
+    </div>
 
-    <!-- Age -->
-    <label for="age">Age:</label>
-    <input type="number" id="age" name="age" value="<%= patient.age %>" required>
+    <h3>Edit Visitation Logs</h3>
+    <% if (patient.visitationLogs && patient.visitationLogs.length > 0) { %>
+    <% patient.visitationLogs.forEach((log, index) => { %>
+    <form action="/patients/<%= patient._id %>/log/<%= log._id %>?_method=PUT" method="POST">
+      <div>
+        <label for="logDepartment-<%= index %>">Department:</label>
+        <select id="logDepartment-<%= index %>" name="department" required>
+          <% departments.forEach(department => { %>
+          <option value="<%= department._id %>" <%= log.department.equals(department._id) ? 'selected' : '' %>>
+            <%= department.name %>
+          </option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <label for="logUrgencyLevel-<%= index %>">Urgency Level:</label>
+        <select id="logUrgencyLevel-<%= index %>" name="urgencyLevel" required>
+          <% urgencys.forEach(urgency => { %>
+          <option value="<%= urgency._id %>" <%= log.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
+            <%= urgency.level %>
+          </option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <label for="logSummary-<%= index %>">Summary:</label>
+        <textarea id="logSummary-<%= index %>" name="summary" rows="4" cols="50"><%= log.summary %></textarea>
+      </div>
+      <div>
+        <label for="logDate-<%= index %>">Date:</label>
+        <input type="date" id="logDate-<%= index %>" name="date" value="<%= log.date.toISOString().split('T')[0] %>" required>
+      </div>
+      <button type="submit">Update Log</button>
+    </form>
+    <hr>
+    <% }) %>
+    <% } else { %>
+    <p>No visitation logs available.</p>
+    <% } %>
 
-    <!-- Gender -->
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-      <option value="Male" <%= patient.gender === "Male" ? "selected" : "" %>>Male</option>
-      <option value="Female" <%= patient.gender === "Female" ? "selected" : "" %>>Female</option>
-      <option value="Other" <%= patient.gender === "Other" ? "selected" : "" %>>Other</option>
-    </select>
-
-    <!-- CPR ID -->
-    <label for="cprId">CPR ID:</label>
-    <input type="text" id="cprId" name="cprId" value="<%= patient.cprId %>" required>
-
-    <!-- Department -->
-    <label for="department">Department:</label>
-    <select id="department" name="department" required onchange="updateDescription()">
-      <option value="" disabled>Select a Department</option>
-      <% departments.forEach(department => { %>
-      <option value="<%= department._id %>" data-description="<%= department.description %>" <%= patient.department._id.equals(department._id) ? "selected" : "" %>>
-        <%= department.name %>
-      </option>
-      <% }); %>
-    </select>
-    <p id="departmentDescription" style="margin-top: 10px; font-style: italic;">
-      Select a department to see its description.
-    </p>
-
-    <!-- Urgency Level -->
-    <label for="urgencyLevel">Urgency Level:</label>
-    <select id="urgencyLevel" name="urgencyLevel" required>
-      <option value="" disabled>Select Urgency Level</option>
-      <% urgencies.forEach(urgency => { %>
-      <option value="<%= urgency._id %>" <%= patient.urgencyLevel._id.equals(urgency._id) ? "selected" : "" %>>
-        <%= urgency.level %>
-      </option>
-      <% }); %>
-    </select>
-
-    <!-- Submit -->
     <button type="submit">Update Patient</button>
   </form>
-
-  <script>
-    // Update Department Description Dynamically
-    function updateDescription() {
-      const departmentSelect = document.getElementById('department');
-      const selectedOption = departmentSelect.options[departmentSelect.selectedIndex];
-      const description = selectedOption.getAttribute('data-description') || 'No description available';
-      document.getElementById('departmentDescription').innerText = description;
-    }
-
-    // Pre-populate Department Description on Load
-    document.addEventListener('DOMContentLoaded', () => {
-      updateDescription();
-    });
-
-    // Add onchange event listener
-    document.getElementById('department').addEventListener('change', updateDescription);
-  </script>
 </body>
-
-</html>

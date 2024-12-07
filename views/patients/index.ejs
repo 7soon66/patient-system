@@ -5,36 +5,46 @@
 <body>
   <%- include('../partials/_navbar.ejs') %>
 
-  <h1>Patients List</h1>
+  <h1>Patient List</h1>
 
-  <% if (user && user.role === 'Admin') { %>
-  <a href="/patients/new" class="btn btn-primary">Add New Patient</a>
-  <% } %> <% patients.forEach(patient => { %>
-  <div>
-    <p><strong>Name:</strong> <%= patient.name %></p>
-    <p><strong>Age:</strong> <%= patient.age %></p>
-    <p><strong>Gender:</strong> <%= patient.gender %></p>
-    <p><strong>Department:</strong> <%= patient.department.name %></p>
+  <% if (user.role === 'Admin') { %>
+  <a href="/patients/new" class="button">Add New Patient</a>
+  <% } %>
 
-    <% if (user && user.role === 'Admin') { %>
-    <p><strong>CPR ID:</strong> <%= patient.cprId %></p>
-    <p><strong>Urgency Level:</strong> <%= patient.urgencyLevel.level %></p>
-    <p>
-      <strong>Created At:</strong> <%= patient.createdAt.toLocaleString() %>
-    </p>
-    <p>
-      <strong>Updated At:</strong> <%= patient.updatedAt.toLocaleString() %>
-    </p>
-
-    <a href="/patients/<%= patient._id %>">View Details</a> |
-    <a href="/patients/<%= patient._id %>/edit">Edit</a> |
-    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST" style="display: inline">
-      <button type="submit">Delete</button>
-    </form>
-    <% } else { %>
-    <a href="/patients/<%= patient._id %>">View Details</a>
-    <% } %>
-  </div>
-  <hr />
-  <% }); %>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Gender</th>
+        <th>Department</th>
+        <% if (user.role === 'Admin') { %>
+        <th>Actions</th>
+        <% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% patients.forEach(patient => { %>
+      <tr>
+        <td><%= patient.name %></td>
+        <td><%= patient.age %></td>
+        <td><%= patient.gender %></td>
+        <td><%= patient.department.name %></td>
+        <% if (user.role === 'Admin') { %>
+        <td>
+          <a href="/patients/<%= patient._id %>">View</a>
+          <a href="/patients/<%= patient._id %>/edit">Edit</a>
+          <form
+            action="/patients/<%= patient._id %>?_method=DELETE"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+        <% } %>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
 </body>

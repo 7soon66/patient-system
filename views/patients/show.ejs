@@ -10,19 +10,45 @@
   <p><strong>Name:</strong> <%= patient.name %></p>
   <p><strong>Age:</strong> <%= patient.age %></p>
   <p><strong>Gender:</strong> <%= patient.gender %></p>
-  <p><strong>Department:</strong> <%= patient.department.name %></p>
-
-  <% if (user && user.role === 'Admin') { %>
   <p><strong>CPR ID:</strong> <%= patient.cprId %></p>
+  <p>
+    <strong>Department:</strong> <%= patient.department.name %> - <%=
+    patient.department.description %>
+  </p>
   <p><strong>Urgency Level:</strong> <%= patient.urgencyLevel.level %></p>
+  <p><strong>Created By:</strong> <%= patient.userId.username %></p>
   <p><strong>Created At:</strong> <%= patient.createdAt.toLocaleString() %></p>
-  <p><strong>Updated At:</strong> <%= patient.updatedAt.toLocaleString() %></p>
+  <p>
+    <strong>Last Updated:</strong> <%= patient.updatedAt.toLocaleString() %>
+  </p>
 
-  <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
+  <h2>Visitation Logs</h2>
+  <% if (patient.visitationLog && patient.visitationLog.length > 0) { %>
+  <ul>
+    <% patient.visitationLog.forEach(log => { %>
+    <li>
+      <p>
+        <strong>Date:</strong> <%= log.date ? log.date.toLocaleDateString() :
+        'N/A' %>
+      </p>
+      <p><strong>Department:</strong> <%= log.department.name %></p>
+      <p><strong>Urgency Level:</strong> <%= log.urgencyLevel.level %></p>
+      <p><strong>Notes:</strong> <%= log.notes || 'No notes available' %></p>
+    </li>
+    <% }); %>
+  </ul>
+  <% } else { %>
+  <p>No visitation logs available.</p>
+  <% } %> <% if (user && user.role === 'Admin') { %>
+  <a href="/patients/<%= patient._id %>/edit">Edit</a>
+  <form
+    action="/patients/<%= patient._id %>?_method=DELETE"
+    method="POST"
+    style="display: inline"
+  >
     <button type="submit">Delete</button>
   </form>
-  <a href="/patients/<%= patient._id %>/edit">Edit</a>
   <% } %>
 
-  <a href="/patients">Back to Patients List</a>
+  <a href="/patients">Back to List</a>
 </body>

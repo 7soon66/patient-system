@@ -3,60 +3,58 @@
 </head>
 
 <body>
-  <h1>Create New Patient</h1>
+  <%- include('../partials/_navbar.ejs') %>
+
+  <h1>Add New Patient</h1>
+
   <form action="/patients" method="POST">
+    <div>
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required>
+    </div>
+    <div>
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender" required>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div>
+      <label for="cprId">CPR ID:</label>
+      <input type="text" id="cprId" name="cprId" required>
+    </div>
+    <div>
+      <label for="department">Department:</label>
+      <select id="department" name="department" required>
+        <% departments.forEach(department => { %>
+          <option value="<%= department._id %>"><%= department.name %> - <%= department.description %></option>
+        <% }) %>
+      </select>
+    </div>
+    <div>
+      <label for="urgencyLevel">Urgency Level:</label>
+      <select id="urgencyLevel" name="urgencyLevel" required>
+        <% urgencies.forEach(urgency => { %>
+          <option value="<%= urgency._id %>"><%= urgency.level %></option>
+        <% }) %>
+      </select>
+    </div>
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required />
+    <h3>Add Visitation Log</h3>
+    <div>
+      <label for="logNotes">Visitation Notes:</label>
+      <textarea id="logNotes" name="logNotes" rows="4" cols="50" placeholder="Enter details about the visitation..."></textarea>
+    </div>
+    <div>
+      <label for="visitDate">Visit Date:</label>
+      <input type="date" id="visitDate" name="visitDate" required>
+    </div>
 
-    <label for="age">Age:</label>
-    <input type="number" id="age" name="age" required />
-
-    <label for="gender">Gender:</label>
-    <select id="gender" name="gender" required>
-      <option value="" disabled selected>Select Gender</option>
-      <option value="Male">Male</option>
-      <option value="Female">Female</option>
-      <option value="Other">Other</option>
-    </select>
-
-    <label for="cprId">CPR ID:</label>
-    <input type="text" id="cprId" name="cprId" required />
-
-    <label for="department">Department:</label>
-    <select id="department" name="department" required onchange="updateDescription()">
-      <option value="" disabled selected>Select a Department</option>
-      <% departments.forEach(department => { %>
-      <option value="<%= department._id %>" data-description="<%= department.description %>">
-        <%= department.name %>
-      </option>
-      <% }); %>
-    </select>
-
-    <p id="departmentDescription" style="margin-top: 10px; font-style: italic; color: #555">
-      Select a department to see its description.
-    </p>
-
-    <label for="urgencyLevel">Urgency Level:</label>
-    <select id="urgencyLevel" name="urgencyLevel" required>
-      <option value="" disabled selected>Select Urgency Level</option>
-      <% urgencies.forEach(urgency => { %>
-      <option value="<%= urgency._id %>"><%= urgency.level %></option>
-      <% }); %>
-    </select>
-
-    <button type="submit">Submit</button>
+    <button type="submit">Add Patient</button>
   </form>
-
-  <script>
-    function updateDescription() {
-      const departmentSelect = document.getElementById('department')
-      const selectedOption =
-        departmentSelect.options[departmentSelect.selectedIndex]
-      const description =
-        selectedOption.getAttribute('data-description') ||
-        'No description available'
-      document.getElementById('departmentDescription').innerText = description
-    }
-  </script>
 </body>
