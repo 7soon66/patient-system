@@ -1,25 +1,27 @@
+<head>
+  <title>Patient Details</title>
+</head>
 <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_navbar.ejs') %>
 
-    <h1>A listing in <%= listing.patientName %></h1>
+  <h1>Patient Details</h1>
 
-    <h2>Patient details</h2>
-    <ul>
-    <li> Name: <%= listing.patientName %></li>
-    <li>Age: $<%= listing.age %></li>
-    <li>cpr ID: <%= listing.cprId %></li>
-    <li><%= listing.gender %></li>
-    <li>Department: <%= listing.department %></li>
-    <li>Urgency Level: <%= listing.urgencyLevel %></li>
-    </ul>
-    
-    <a href="/listings/<%= listing._id %>/edit">Edit Information</a>
-    
-    <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete the Patient</button>
+  <p><strong>Name:</strong> <%= patient.name %></p>
+  <p><strong>Age:</strong> <%= patient.age %></p>
+  <p><strong>Gender:</strong> <%= patient.gender %></p>
+  <p><strong>Department:</strong> <%= patient.department.name %></p>
+
+  <% if (user && user.role === 'Admin') { %>
+    <p><strong>CPR ID:</strong> <%= patient.cprId %></p>
+    <p><strong>Urgency Level:</strong> <%= patient.urgencyLevel.level %></p>
+    <p><strong>Created At:</strong> <%= patient.createdAt.toLocaleString() %></p>
+    <p><strong>Updated At:</strong> <%= patient.updatedAt.toLocaleString() %></p>
+
+    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
+      <button type="submit">Delete</button>
     </form>
-    <% } %>
+    <a href="/patients/<%= patient._id %>/edit">Edit</a>
+  <% } %>
 
-
+  <a href="/patients">Back to Patients List</a>
 </body>
-

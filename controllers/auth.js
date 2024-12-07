@@ -1,67 +1,70 @@
-const router = require('express').Router()
-const bcrypt = require('bcrypt')
+const express = require('express')
+const bcrypt = require('bcryptjs')
 const User = require('../models/user')
+const router = express.Router()
 
-// Routes / API's/ Controller Functions
-
+// GET sign-up form
 router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs')
 })
 
+// POST sign-up form submission
 router.post('/sign-up', async (req, res) => {
   try {
-    const userInDatabase = await User.findOne({ username: req.body.username })
-    if (userInDatabase) {
-      return res.send('Username already taken.')
-    }
-
-    if (req.body.password !== req.body.confirmPassword) {
-      return req.send('Password and Confirm Password must match')
-    }
-
-    // bcrytpt for password encryption
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
-    req.body.password = hashedPassword
-
-    // validation logic
-    const user = await User.create(req.body)
-    res.send(`Thanks for signing up ${user.username}`)
-  } catch (error) {
-    console.log()
+    const hashedPassword = bcrypt.hashSync(
+      req.body.password,
+      bcrypt.genSaltSync(10)
+    )
+    await User.create({
+      username: req.body.username,
+      password: hashedPassword,
+      role: 'Patient'
+    })
+    res.redirect('/auth/sign-in')
+  } catch (err) {
+    res.status(500).send('Error signing up. Please try again.')
   }
 })
 
-router.get('/sign-in', async (req, res) => {
+// GET sign-in form
+router.get('/sign-in', (req, res) => {
   res.render('auth/sign-in.ejs')
 })
 
+// POST sign-in form submission
 router.post('/sign-in', async (req, res) => {
-  const userInDatabase = await User.findOne({
-    username: req.body.username
-  })
-  if (!userInDatabase) {
-    return res.send('Login failed. Please try again.')
-  }
+  try {
+    const userInDatabase = await User.findOne({ username: req.body.username })
+    if (!userInDatabase) {
+      return res.send('Login failed. Please try again.')
+    }
 
-  const validPassword = bcrypt.compareSync(
-    req.body.password,
-    userInDatabase.password
-  )
-  if (!validPassword) {
-    return res.send('Login failed. Please try again.')
-  }
+    const validPassword = bcrypt.compareSync(
+      req.body.password,
+      userInDatabase.password
+    )
+    if (!validPassword) {
+      return res.send('Login failed. Please try again.')
+    }
 
-  req.session.user = {
-    username: userInDatabase.username,
-    _id: userInDatabase._id
-  }
+    // Store user details in session
+    req.session.user = {
+      username: userInDatabase.username,
+      _id: userInDatabase._id,
+      role: userInDatabase.role
+    }
 
-  res.redirect('/')
+    res.redirect('/')
+  } catch (err) {
+    res.status(500).send('Error signing in. Please try again.')
+  }
 })
 
+// GET sign-out
 router.get('/sign-out', (req, res) => {
-  req.session.destroy()
-  res.redirect('/')
+  req.session.destroy(() => {
+    res.redirect('/auth/sign-in')
+  })
 })
 
 module.exports = router

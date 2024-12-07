@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const PatientSchema = new mongoose.Schema({
+const patientSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true
@@ -14,7 +14,10 @@ const PatientSchema = new mongoose.Schema({
     enum: ['Male', 'Female', 'Other'],
     required: true
   },
-  department: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Department' }],
+  department: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Department'
+  },
   cprId: {
     type: Number,
     unique: true,
@@ -36,8 +39,10 @@ const PatientSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  }
-})
+  } 
+},
+{ timestamps: true }
+)
 
 const Patient = mongoose.model('Patient', PatientSchema)
 
