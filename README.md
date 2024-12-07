@@ -1,5 +1,12 @@
 # patient-system
 
+## Names:
+#### Hussain almajed
+#### Abdulrahman Alaam
+#### Abdullah Khalid
+
+
+
 ## Project describtion:
 
 * Our project is an patient system where we as users(employees) have an account to sign-in with, also we have to recive a patient where we register them and based on the level of 
@@ -25,43 +32,43 @@ case and the department he want to go for , then we can view the details of the 
 
 
 ## ERD:
-!["ERD diagram"](image-720.png)
+!["ERD diagram"](/pictures/image-720.png)
 
 
 ## wireframes (prototype)
 
 ### Home page
 
-!["home page"](home.JPG) 
+!["home page"](/pictures/home.JPG) 
 
 
 ### sign-up page
 
-!["Sign up page"](sign-up.JPG) 
+!["Sign up page"](/pictures/sign-up.JPG) 
 
 
 ### sign-in page
 
-!["sign in page"](sign-in.JPG) 
+!["sign in page"](/pictures/sign-in.JPG) 
 
 
 ### index page (welcome)
 
-!["index page"](main.JPG) 
+!["index page"](/pictures/main.JPG) 
 
 
 ### view all patients page
 
-!["all patient"](all-patients.JPG) 
+!["all patient"](/pictures/all-patients.JPG) 
 
 ### add pateint page
 
-!["Image description"](add-pateints.JPG) 
+!["Image description"](/pictures/add-pateints.JPG) 
 
 ### patient details page
 
-!["patients details"](pateint-details.JPG) 
+!["patients details"](/pictures/pateint-details.JPG) 
 
 ### edit patient details
 
-!["Image description"](edit-info-details.JPG) 
+!["Image description"](/pictures/edit-info-details.JPG) 
