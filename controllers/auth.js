@@ -1,69 +1,72 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
+const Patient = require('../models/patient')
 const router = express.Router()
 
-// GET sign-up form
+// GET: sign-up form
 router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs')
 })
 
-// POST sign-up form submission
+// POST: sign-up submission
 router.post('/sign-up', async (req, res) => {
+  const { username, password } = req.body
   try {
-    const hashedPassword = bcrypt.hashSync(
-      req.body.password,
-      bcrypt.genSaltSync(10)
-    )
-    await User.create({
-      username: req.body.username,
-      password: hashedPassword,
-      role: 'Patient'
-    })
+    if (!username || !password)
+      return res.status(400).send('Username and password required.')
+
+    const patient = await Patient.findOne({ cprId: username })
+    if (!patient) return res.status(400).send('Invalid CPR ID.')
+
+    const existingUser = await User.findOne({ username })
+    if (existingUser) return res.status(400).send('Username exists.')
+
+    const hashedPassword = await bcrypt.hash(password, 10)
+    await User.create({ username, password: hashedPassword, role: 'Patient' })
     res.redirect('/auth/sign-in')
   } catch (err) {
-    res.status(500).send('Error signing up. Please try again.')
+    console.error(err)
+    res.status(500).send('Error signing up.')
   }
 })
 
-// GET sign-in form
+// GET: sign-in form
 router.get('/sign-in', (req, res) => {
   res.render('auth/sign-in.ejs')
 })
 
-// POST sign-in form submission
+// POST: sign-in submission
 router.post('/sign-in', async (req, res) => {
+  const { username, password } = req.body
   try {
-    const userInDatabase = await User.findOne({ username: req.body.username })
-    if (!userInDatabase) {
-      return res.send('Login failed. Please try again.')
+    const admin = await User.findOne({ username, role: 'Admin' })
+    if (admin) {
+      const isMatch = await bcrypt.compare(password, admin.password)
+      if (isMatch) {
+        req.session.user = admin
+        return res.redirect('/')
+      }
+      return res.status(400).send('Invalid password.')
     }
 
-    const validPassword = bcrypt.compareSync(
-      req.body.password,
-      userInDatabase.password
-    )
-    if (!validPassword) {
-      return res.send('Login failed. Please try again.')
+    const patient = await Patient.findOne({ cprId: username })
+    if (patient) {
+      req.session.user = { username, role: 'Patient' }
+      return res.redirect('/patients/me')
     }
 
-    // Store user details in session
-    req.session.user = {
-      username: userInDatabase.username,
-      _id: userInDatabase._id,
-      role: userInDatabase.role
-    }
-
-    res.redirect('/')
+    res.status(400).send('Invalid username or CPR ID.')
   } catch (err) {
-    res.status(500).send('Error signing in. Please try again.')
+    console.error(err)
+    res.status(500).send('Error signing in.')
   }
 })
 
-// GET sign-out
+// GET: sign-out
 router.get('/sign-out', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('/auth/sign-in')
+    res.redirect('/')
   })
 })
 
