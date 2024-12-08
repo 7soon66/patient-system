@@ -85,15 +85,18 @@ app.set('view engine', 'ejs')
 app.use('/auth', authCtrl)
 app.use('/departments', departmentCtrl)
 app.use('/patients', patientCtrl)
+
+
 // Root route
-app.get('/', (req, res) => {
-  res.render('index.ejs');
-});
+// app.get('/', (req, res) => {
+//   res.render('index.ejs');
+// });
+
 
 // upload 
-app.get('/upload', (req, res) => {
-  res.render('upload')
-})
+// app.get('/upload', (req, res) => {
+//   res.render('upload')
+// })
 
 app.post('/upload', upload.single('image'), (req, res) => {
   res.send('Image Upload')
