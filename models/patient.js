@@ -27,12 +27,16 @@ const patientSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ['Male', 'Female', 'Other', ''],
-      default: ''
+      enum: ['Male', 'Female', 'Other'],
+     require:true
+        // errorMessage:"choose a gender"
+     
+      
     },
     department: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Department'
+      ref: 'Department',
+     required:true
     },
     cprId: {
       type: Number,
@@ -41,7 +45,8 @@ const patientSchema = new mongoose.Schema(
     },
     urgencyLevel: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Urgency'
+      ref: 'Urgency',
+      require:true
     },
     createdAt: {
       type: Date,
