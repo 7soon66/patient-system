@@ -1,27 +1,54 @@
+<head>
+  <title>Patient Details</title>
+</head>
+
 <body>
-    <%- include('../partials/_navbar.ejs') %>
+  <%- include('../partials/_navbar.ejs') %>
 
+  <h1>Patient Details</h1>
 
-    <h1> patients <%= patient.patientName %></h1>
+  <p><strong>Name:</strong> <%= patient.name %></p>
+  <p><strong>Age:</strong> <%= patient.age %></p>
+  <p><strong>Gender:</strong> <%= patient.gender %></p>
+  <p><strong>CPR ID:</strong> <%= patient.cprId %></p>
+  <p>
+    <strong>Department:</strong> <%= patient.department.name %> - <%=
+    patient.department.description %>
+  </p>
+  <p><strong>Urgency Level:</strong> <%= patient.urgencyLevel.level %></p>
+  <p><strong>Created By:</strong> <%= patient.userId.username %></p>
+  <p><strong>Created At:</strong> <%= patient.createdAt.toLocaleString() %></p>
+  <p>
+    <strong>Last Updated:</strong> <%= patient.updatedAt.toLocaleString() %>
+  </p>
 
+  <h2>Visitation Logs</h2>
+  <% if (patient.visitationLog && patient.visitationLog.length > 0) { %>
+  <ul>
+    <% patient.visitationLog.forEach(log => { %>
+    <li>
+      <p>
+        <strong>Date:</strong> <%= log.date ? log.date.toLocaleDateString() :
+        'N/A' %>
+      </p>
+      <p><strong>Department:</strong> <%= log.department.name %></p>
+      <p><strong>Urgency Level:</strong> <%= log.urgencyLevel.level %></p>
+      <p><strong>Notes:</strong> <%= log.notes || 'No notes available' %></p>
+    </li>
+    <% }); %>
+  </ul>
+  <% } else { %>
+  <p>No visitation logs available.</p>
+  <% } %> <% if (user && user.role === 'Admin') { %>
+  <a href="/patients/<%= patient._id %>/edit">Edit</a>
+  <form
+    action="/patients/<%= patient._id %>?_method=DELETE"
+    method="POST"
+    style="display: inline"
+  >
+    <button type="submit">Delete</button>
+  </form>
+  <% } %>
 
-    <h2>Patient details</h2>
-    <ul>
-    <li> Name: <%= patient.patientName %></li>
-    <li>Age: $<%= patient.age %></li>
-    <li>cpr ID: <%= patient.cprId %></li>
-    <li><%= patient.gender %></li>
-    <li>Department: <%= patient.department %></li>
-    <li>Urgency Level: <%= patient.urgencyLevel %></li>
-    </ul>
-    
-    <a href="/patients/<%= patient._id %>/edit">Edit Information</a>
-    
-    <form action="/patients/<%= patient._id %>?_method=DELETE" method="POST">
-    <button type="submit">Delete the Patient</button>
-    </form>
-    <%  %>
-
-
+  <a href="/patients">Back to List</a>
 </body>
-
