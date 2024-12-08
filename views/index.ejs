@@ -8,6 +8,14 @@
   <body>
 
     <%- include('./partials/_navbar.ejs') %>
+    
+    <% if (user && user.profile_image) { %>
+    <img src="<%= user.profile_image %>" alt="profile Image" width="200">
+    <% } else { %>
+<p>No profile image available</p>
+    <% } %>
+
+
     <h1>Welcome to the Patient System App!</h1>
 
   </body>
