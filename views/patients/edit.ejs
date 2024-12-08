@@ -66,7 +66,7 @@
       <div>
         <label for="logUrgencyLevel-<%= index %>">Urgency Level:</label>
         <select id="logUrgencyLevel-<%= index %>" name="urgencyLevel" required>
-          <% urgencys.forEach(urgency => { %>
+          <% urgencies.forEach(urgency => { %>
           <option value="<%= urgency._id %>" <%= log.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
             <%= urgency.level %>
           </option>
