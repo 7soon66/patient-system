@@ -20,7 +20,7 @@ const multer = require('multer')
 const path = require('path')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'usersImage')
+    cb(null, './usersImage')
   },
 
   filename: (req, file, cb) => {
@@ -89,3 +89,12 @@ app.use('/patients', patientCtrl)
 app.get('/', (req, res) => {
   res.render('index.ejs')
 })
+
+app.post('/upload', upload.single('profile_image'), (req, res) => {
+  res.send('Image Upload')
+})
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`The Express app is running on port ${PORT}`);
+});
