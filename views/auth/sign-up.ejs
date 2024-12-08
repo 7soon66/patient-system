@@ -1,4 +1,6 @@
 <body>
+  <%- include('../partials/_navbar.ejs') %>
+  
   <h1>Create a new account</h1>
   <form action="/auth/sign-up" method="POST">
     <label>Username:</label>
@@ -15,6 +17,11 @@
     <input type="password" name="confirmPassword" id="confirmPassword" />
 
     <br />
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" />
+      <button type="submit">Upload Image</button>
+    </form>
 
     <button type="submit">Sign Up</button>
   </form>

@@ -9,6 +9,21 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
 
+// upload
+const multer = require('multer')
+const path = require('path')
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'usersImage')
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({storage: storage})
+
 // Import middleware
 const passUsertoView = require('./middleware/pass-user-to-view');
 const isSignedIn = require('./middleware/is-signed-in');
@@ -17,7 +32,7 @@ const isSignedIn = require('./middleware/is-signed-in');
 // Import controllers
 const authCtrl = require('./controllers/auth.js');
 const departmentsController = require('./controllers/departments');
-
+const patientsController = require('./controllers/patients');
 // Initialize Express app
 const app = express();
 
@@ -49,11 +64,20 @@ app.set('view engine', 'ejs');
 // Use controllers
 app.use('/auth', authCtrl);
 app.use('/departments', departmentsController);
-
+app.use("/patients",patientsController)
 // Root route
 app.get('/', (req, res) => {
   res.render('index.ejs');
 });
+
+// upload 
+app.get('/upload', (req, res) => {
+  res.render('upload')
+})
+
+app.post('/upload', upload.single('image'), (req, res) => {
+  res.send('Image Upload')
+})
 
 // Start server
 app.listen(PORT, () => {
