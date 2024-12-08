@@ -2,7 +2,14 @@
   <title>Create New Patient</title>
 </head>
 
+<head>
+  <title>Create New Patient</title>
+</head>
+
 <body>
+  <%- include('../partials/_navbar.ejs') %>
+
+  <h1>Add New Patient</h1>
   <%- include('../partials/_navbar.ejs') %>
 
   <h1>Add New Patient</h1>
@@ -19,9 +26,10 @@
     <div>
       <label for="gender">Gender:</label>
       <select id="gender" name="gender" required>
+        <option value="" >---select gender---</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-        <option value="Other">Other</option>
+        <option value="Other">Other</option>  
       </select>
     </div>
     <div>
@@ -30,15 +38,22 @@
     </div>
     <div>
       <label for="department">Department:</label>
-      <select id="department" name="department" required>
+      <select id="department" name="department" >
+        <option value=" " selected>---select department---</option>
         <% departments.forEach(department => { %>
+          
           <option value="<%= department._id %>"><%= department.name %> - <%= department.description %></option>
+          
         <% }) %>
+        
       </select>
     </div>
     <div>
       <label for="urgencyLevel">Urgency Level:</label>
+      
       <select id="urgencyLevel" name="urgencyLevel" required>
+        
+        <option value="">---select urgency level---</option>
         <% urgencies.forEach(urgency => { %>
           <option value="<%= urgency._id %>"><%= urgency.level %></option>
         <% }) %>
@@ -55,6 +70,9 @@
       <input type="date" id="visitDate" name="visitDate" required>
     </div>
 
+    
+
     <button type="submit">Add Patient</button>
   </form>
 </body>
+

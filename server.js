@@ -15,6 +15,21 @@ const path = require('path')
 const Department = require('./models/department')
 const Urgency = require('./models/urgency')
 
+// upload
+const multer = require('multer')
+const path = require('path')
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'usersImage')
+  },
+
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
+})
+
+const upload = multer({ storage: storage })
+
 // Import middleware
 const passUsertoView = require('./middleware/pass-user-to-view')
 const isSignedIn = require('./middleware/is-signed-in')
@@ -24,7 +39,6 @@ const authCtrl = require('./controllers/auth.js')
 const departmentCtrl = require('./controllers/departments.js')
 const patientCtrl = require('./controllers/patients.js')
 const profilePictureRoutes = require('./controllers/profilePictures')
-
 // Initialize Express app
 const app = express()
 
@@ -62,7 +76,7 @@ app.use(
 )
 app.use(passUsertoView)
 app.use('/profile-pictures', profilePictureRoutes)
-app.use('/uploads', express.static('public/uploads'));
+app.use('/uploads', express.static('public/uploads'))
 
 // Set view engine
 app.set('view engine', 'ejs')
@@ -71,7 +85,6 @@ app.set('view engine', 'ejs')
 app.use('/auth', authCtrl)
 app.use('/departments', departmentCtrl)
 app.use('/patients', patientCtrl)
-
 // Root route
 app.get('/', (req, res) => {
   res.render('index.ejs')
