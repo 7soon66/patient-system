@@ -27,9 +27,8 @@ const patientSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      enum: ['Male', 'Female', 'Other'," "],
-      required: true,
-      default:" "
+      enum: ['Male', 'Female', 'Other', ''],
+      default: ''
     },
     department: {
       type: mongoose.Schema.Types.ObjectId,
