@@ -22,13 +22,15 @@
   </style>
 </head>
 <body>
+  <%- include('./partials/_navbar.ejs') %>
+
   <div class="profile-container">
     <h1>User Profile</h1>
     <img
-      src="<%= user.profilePicture %>"
-      alt="Profile Picture"
+      src="<%= user.profilePicture || '/default-profile.png' %>"
       class="profile-picture"
     />
+
     <h2>Welcome, <%= user.username %></h2>
   </div>
 

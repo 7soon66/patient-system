@@ -2,8 +2,8 @@ const express = require('express')
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 const Patient = require('../models/patient')
-const router = express.Router()
 const isSignedIn = require('../middleware/is-signed-in')
+const router = express.Router()
 // GET: sign-up form
 router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs')
@@ -70,30 +70,26 @@ router.get('/sign-out', (req, res) => {
   })
 })
 
+// Profile route
 router.get('/profile', isSignedIn, async (req, res) => {
   try {
-    const user = await User.findById(req.session.user._id);
-    if (!user) {
+    let userOrPatient;
+
+    if (req.session.user.role === 'Admin') {
+      userOrPatient = await User.findById(req.session.user._id);
+    } else if (req.session.user.role === 'Patient') {
+      userOrPatient = await Patient.findOne({ cprId: req.session.user.username });
+    }
+
+    if (!userOrPatient) {
       return res.status(404).send('User not found.');
     }
-    res.render('profile.ejs', { user });
+
+    res.render('profile.ejs', { user: userOrPatient });
   } catch (err) {
     console.error('Error loading profile page:', err);
     res.status(500).send('Internal Server Error.');
   }
 });
-
-// router.get('/profile', isSignedIn, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.session.user._id);
-//     if (!user) {
-//       return res.status(404).send('User not found.');
-//     }
-//     res.render('profile.ejs', { user });
-//   } catch (err) {
-//     console.error('Error loading profile page:', err);
-//     res.status(500).send('Internal Server Error.');
-//   }
-// });
 
 module.exports = router
