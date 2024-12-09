@@ -8,62 +8,49 @@
   <form action="/patients" method="POST">
     <div>
       <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" name="name" required />
     </div>
     <div>
       <label for="age">Age:</label>
-      <input type="number" id="age" name="age" required>
+      <input type="number" id="age" name="age" required />
     </div>
     <div>
       <label for="gender">Gender:</label>
       <select id="gender" name="gender" required>
-        <option value="" >---select gender---</option>
+        <option value="">---select gender---</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-        <option value="Other">Other</option>  
+        <option value="Other">Other</option>
       </select>
     </div>
     <div>
       <label for="cprId">CPR ID:</label>
-      <input type="text" id="cprId" name="cprId" required>
+      <input type="text" id="cprId" name="cprId" required />
     </div>
     <div>
       <label for="department">Department:</label>
-      <select id="department" name="department" >
+      <select id="department" name="department">
         <option value=" " selected>---select department---</option>
         <% departments.forEach(department => { %>
-          
-          <option value="<%= department._id %>"><%= department.name %> - <%= department.description %></option>
-          
+
+        <option value="<%= department._id %>">
+          <%= department.name %> - <%= department.description %>
+        </option>
+
         <% }) %>
-        
       </select>
     </div>
     <div>
       <label for="urgencyLevel">Urgency Level:</label>
-      
+
       <select id="urgencyLevel" name="urgencyLevel" required>
-        
         <option value="">---select urgency level---</option>
         <% urgencies.forEach(urgency => { %>
-          <option value="<%= urgency._id %>"><%= urgency.level %></option>
+        <option value="<%= urgency._id %>"><%= urgency.level %></option>
         <% }) %>
       </select>
     </div>
 
-    <h3>Add Visitation Log</h3>
-    <div>
-      <label for="logNotes">Visitation Notes:</label>
-      <textarea id="logNotes" name="logNotes" rows="4" cols="50" placeholder="Enter details about the visitation..."></textarea>
-    </div>
-    <div>
-      <label for="visitDate">Visit Date:</label>
-      <input type="date" id="visitDate" name="visitDate" required>
-    </div>
-
-    
-
     <button type="submit">Add Patient</button>
   </form>
 </body>
-

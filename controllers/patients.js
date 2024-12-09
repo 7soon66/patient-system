@@ -81,7 +81,7 @@ router.get('/me', isSignedIn, async (req, res) => {
 router.get('/:patientId', isSignedIn, async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.patientId).populate(
-      'department urgencyLevel userId visitationLogs.department visitationLogs.urgencyLevel'
+      'department urgencyLevel userId'
     )
 
     if (!patient) return res.status(404).send('Patient not found.')
@@ -138,64 +138,5 @@ router.put('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
     res.status(404).send('Patient not found.')
   }
 })
-
-// POST add visitation log (Admin)
-router.post('/:patientId/log', isSignedIn, requireAdmin, async (req, res) => {
-  try {
-    const { patientId } = req.params
-    const { department, urgencyLevel, notes, date } = req.body
-    if (!department || !urgencyLevel || !date)
-      return res.status(400).send('All fields required.')
-
-    const patient = await Patient.findById(patientId)
-    if (!patient) return res.status(404).send('Patient not found.')
-
-    patient.visitationLog.push({
-      department,
-      urgencyLevel,
-      notes,
-      date: new Date(date)
-    })
-
-    await patient.save()
-    res.redirect(`/patients/${patientId}`)
-  } catch (err) {
-    console.error(err)
-    res.status(500).send('Error adding visitation log.')
-  }
-})
-
-// PUT edit visitation log (Admin)
-router.put(
-  '/:patientId/log/:logId',
-  isSignedIn,
-  requireAdmin,
-  async (req, res) => {
-    try {
-      const { patientId, logId } = req.params
-      const { department, urgencyLevel, summary, date } = req.body
-      if (!department || !urgencyLevel || !summary || !date) {
-        return res.status(400).send('All fields required.')
-      }
-
-      const patient = await Patient.findById(patientId)
-      if (!patient) return res.status(404).send('Patient not found.')
-
-      const log = patient.visitationLogs.id(logId)
-      if (!log) return res.status(404).send('Log not found.')
-
-      log.department = department
-      log.urgencyLevel = urgencyLevel
-      log.summary = summary
-      log.date = new Date(date)
-
-      await patient.save()
-      res.redirect(`/patients/${patientId}`)
-    } catch (err) {
-      console.error(err)
-      res.status(500).send('Error editing visitation log.')
-    }
-  }
-)
 
 module.exports = router
