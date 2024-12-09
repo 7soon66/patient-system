@@ -1,8 +1,12 @@
-<% if (user) { %>
-  <a href="/">Home</a>
-  <a href="/patients">View all Patients</a>
-  <a href="/auth/sign-out">Sign Out</a>
-<% } else { %>
-  <a href="/auth/sign-up">Sign Up</a>
-  <a href="/auth/sign-in">Sign In</a>
-<% } %>
+<nav>
+  <% if (user) { %>
+    <a href="/profile">
+      <img src="<%= user.profilePicture %>" alt="Profile Picture" width="40" height="40">
+      <span>Profile</span>
+    </a>
+    <a href="/auth/sign-out">Sign Out</a>
+  <% } else { %>
+    <a href="/auth/sign-up">Sign Up</a>
+    <a href="/auth/sign-in">Sign In</a>
+  <% } %>
+</nav>

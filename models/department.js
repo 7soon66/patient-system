@@ -44,6 +44,19 @@ departmentSchema.pre('save', function (next) {
   next()
 })
 
+// Static method to inject predefined departments
+departmentSchema.statics.initialize = async function () {
+  const existingDepartments = await this.find();
+  if (existingDepartments.length === 0) {
+    const departments = Object.entries(departmentDescriptions).map(([name, description]) => ({
+      name,
+      description,
+    }));
+    await this.insertMany(departments);
+    console.log("Predefined departments injected into the database.");
+  }
+};
+
 const Department = mongoose.model('Department', departmentSchema)
 
 module.exports = Department

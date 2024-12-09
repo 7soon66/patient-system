@@ -16,8 +16,6 @@ const Department = require('./models/department')
 const Urgency = require('./models/urgency')
 
 // upload
-const multer = require('multer')
-const path = require('path')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, 'usersImage')
@@ -75,8 +73,8 @@ app.use(
   })
 )
 app.use(passUsertoView)
-app.use('/profile-pictures', profilePictureRoutes)
 app.use('/uploads', express.static('public/uploads'))
+app.use('/profile-pictures', profilePictureRoutes)
 
 // Set view engine
 app.set('view engine', 'ejs')
