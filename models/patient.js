@@ -1,20 +1,5 @@
 const mongoose = require('mongoose')
 
-const visitationLogSchema = new mongoose.Schema({
-  department: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Department',
-    required: true
-  },
-  urgencyLevel: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Urgency',
-    required: true
-  },
-  notes: { type: String },
-  date: { type: Date, required: true }
-})
-
 const patientSchema = new mongoose.Schema(
   {
     name: {
@@ -28,15 +13,13 @@ const patientSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ['Male', 'Female', 'Other'],
-     require:true
-        // errorMessage:"choose a gender"
-     
-      
+      require: true
+      // errorMessage:"choose a gender"
     },
     department: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Department',
-     required:true
+      required: true
     },
     cprId: {
       type: Number,
@@ -46,7 +29,7 @@ const patientSchema = new mongoose.Schema(
     urgencyLevel: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Urgency',
-      require:true
+      require: true
     },
     createdAt: {
       type: Date,
@@ -61,7 +44,11 @@ const patientSchema = new mongoose.Schema(
       ref: 'User',
       required: true
     },
-    visitationLogs: [visitationLogSchema]
+
+    profilePicture: {
+      type: String,
+      default: ''
+    }
   },
   { timestamps: true }
 )
