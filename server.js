@@ -74,7 +74,7 @@ app.use(
 )
 app.use(passUsertoView)
 app.use('/uploads', express.static('public/uploads'))
-app.use('/profile-pictures', profilePictureRoutes)
+app.use(profilePictureRoutes)
 
 // Set view engine
 app.set('view engine', 'ejs')
