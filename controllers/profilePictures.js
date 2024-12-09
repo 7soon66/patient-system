@@ -34,7 +34,7 @@ router.post(
       if (req.session.user.role === 'Admin') {
         userOrPatient = await User.findById(req.session.user._id)
       } else if (req.session.user.role === 'Patient') {
-        userOrPatient = await Patient.findById({
+        userOrPatient = await Patient.findOne({
           cprId: req.session.user.username
         })
       }
@@ -43,6 +43,7 @@ router.post(
         return res.status(404).send('User not found.')
       }
 
+      // Update the profilePicture field
       userOrPatient.profilePicture = `/uploads/${req.file.filename}`
       await userOrPatient.save()
 
