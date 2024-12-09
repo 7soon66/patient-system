@@ -4,7 +4,6 @@ const User = require('../models/user')
 const Patient = require('../models/patient')
 const isSignedIn = require('../middleware/is-signed-in')
 const router = express.Router()
-const isSignedIn = require('../middleware/is-signed-in')
 // GET: sign-up form
 router.get('/sign-up', (req, res) => {
   res.render('auth/sign-up.ejs')
