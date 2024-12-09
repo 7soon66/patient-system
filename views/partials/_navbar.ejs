@@ -1,12 +1,21 @@
 <nav>
   <% if (user) { %>
-    <a href="/profile">
-      <img src="<%= user.profilePicture %>" alt="Profile Picture" width="40" height="40">
-      <span>Profile</span>
+  <div>
+    <!-- Profile link with picture and username -->
+    <a href="/auth/profile"></span>
+      <img src="<%= user.profilePicture %>" alt="Profile Picture" width="40" height="40" style="border-radius: 50%;">
     </a>
-    <a href="/auth/sign-out">Sign Out</a>
+  </div>
+
+  <!-- Existing navigation options -->
+  <a href="/">Home</a>
+  <a href="/patients">View Patients</a>
+  <% if (user.role === 'Admin') { %>
+  <a href="/patients/new">Add New Patient</a>
+  <% } %>
+  <a href="/auth/sign-out">Sign Out</a>
   <% } else { %>
-    <a href="/auth/sign-up">Sign Up</a>
-    <a href="/auth/sign-in">Sign In</a>
+  <a href="/auth/sign-up">Sign Up</a>
+  <a href="/auth/sign-in">Sign In</a>
   <% } %>
 </nav>
