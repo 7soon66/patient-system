@@ -83,17 +83,4 @@ router.get('/profile', isSignedIn, async (req, res) => {
   }
 });
 
-// router.get('/profile', isSignedIn, async (req, res) => {
-//   try {
-//     const user = await User.findById(req.session.user._id);
-//     if (!user) {
-//       return res.status(404).send('User not found.');
-//     }
-//     res.render('profile.ejs', { user });
-//   } catch (err) {
-//     console.error('Error loading profile page:', err);
-//     res.status(500).send('Internal Server Error.');
-//   }
-// });
-
 module.exports = router
