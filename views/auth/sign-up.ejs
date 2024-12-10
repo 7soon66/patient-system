@@ -1,29 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+<title>Document</title>
+</head>
 <body>
-  <%- include('../partials/_navbar.ejs') %>
   
-  <h1>Create a new account</h1>
+</body>
+</html>
+<body class="page">
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="sign-up">
+  <h1 id="h1-create-new">Create a new account</h1>
   <form action="/auth/sign-up" method="POST">
-    <label>Username:</label>
-    <input type="text" name="username" id="username" />
+    <label id="username-sign-up">Username:</label>
+    <input type="text" name="username" id="username-up" />
 
     <br />
 
-    <label>Password:</label>
-    <input type="password" name="password" id="password" />
+    <label id="password-sign-up">Password:</label>
+    <input type="password" name="password" id="password-up" />
 
     <br />
 
-    <label>Confirm Password:</label>
+    <label id="confirm-password">Confirm Password:</label>
     <input type="password" name="confirmPassword" id="confirmPassword" />
 
     <br />
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
+    <!-- <form action="/upload" method="POST" enctype="multipart/form-data">
       <input type="file" name="image" accept="image/*" />
       <button type="submit">Upload Image</button>
-    </form>
+    </form> -->
 
-    <button type="submit">Sign Up</button>
+    <button type="submit" id="submit-sign-up">Sign Up</button>
   </form>
-  
+  </div>
 </body>

@@ -1,51 +1,46 @@
 <head>
-  
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <title>Patients List</title>
 </head>
 
-<body>
-
-
-
-
-    <%- include('../partials/_navbar.ejs') %>
-  <h1>Patient List</h1>
+<body class="page" id="list-page">
+  <%- include('../partials/_navbar.ejs') %>
+<div class="patient-list-page">
+  <h1 id="h1-patient-list">Patient List</h1>
 
   <% if (user.role === 'Admin') { %>
-  <a href="/patients/new" class="button">Add New Patient</a>
+  <a href="/patients/new" class="button" id="add-link">Add New Patient</a>
   <% } %>
 
   <table>
-    <thead>
+    <thead >
       <tr>
-        <th>Name</th>
-        <th>Age</th>
-        <th>Gender</th>
-        <th>Department</th>
+        <th id="info-name">Name</th>
+        <th id="info-age">Age</th>
+        <th id="info-gender">Gender</th>
+        <th id="info-department">Department</th>
         <% if (user.role === 'Admin') { %>
-        <th>Actions</th>
+        <th id="info-actions">Actions</th>
         <% } %>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="info-admin">
       <% patients.forEach(patient => { %>
       <tr>
-        <td><%= patient.name %></td>
-        <td><%= patient.age %></td>
-        <td><%= patient.gender %></td>
-        <td><%= patient.department.name %></td>
+        <td id="info-name"><%= patient.name %></td>
+        <td id="info-age"><%= patient.age %></td>
+        <td id="info-gender"><%= patient.gender %></td>
+        <td id="info-department"><%= patient.department.name %></td>
         <% if (user.role === 'Admin') { %>
-        <td>
-          <a href="/patients/<%= patient._id %>"
-            
-            >View</a>
-          <a href="/patients/<%= patient._id %>/edit">Edit</a>
+        <td id="info-actions">
+          <a href="/patients/<%= patient._id %>" id="view-link">View</a>
+          <a href="/patients/<%= patient._id %>/edit" id="edit-link">Edit</a>
           <form
             action="/patients/<%= patient._id %>?_method=DELETE"
             method="POST"
             style="display: inline"
           >
-            <button type="submit">Delete</button>
+            <button type="submit" id="submit-delete">Delete</button>
           </form>
         </td>
         <% } %>
@@ -53,4 +48,5 @@
       <% }) %>
     </tbody>
   </table>
+</div>
 </body>
