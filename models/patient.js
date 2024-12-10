@@ -24,8 +24,7 @@ const patientSchema = new mongoose.Schema(
     cprId: {
       type: Number,
       unique: true,
-      required: true,
-      
+      required: true
     },
     urgencyLevel: {
       type: mongoose.Schema.Types.ObjectId,
@@ -47,8 +46,8 @@ const patientSchema = new mongoose.Schema(
     },
 
     profilePicture: {
-      type: String,
-      default: ''
+      data: Buffer,
+      contentType: String
     }
   },
   { timestamps: true }

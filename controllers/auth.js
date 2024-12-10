@@ -73,22 +73,27 @@ router.get('/sign-out', (req, res) => {
 // Profile route
 router.get('/profile', isSignedIn, async (req, res) => {
   try {
-    let userOrPatient;
-
+    let userOrPatient
     if (req.session.user.role === 'Admin') {
-      userOrPatient = await User.findById(req.session.user._id);
+      userOrPatient = await User.findById(req.session.user._id)
     } else if (req.session.user.role === 'Patient') {
-      userOrPatient = await Patient.findOne({ cprId: req.session.user.username });
+      userOrPatient = await Patient.findOne({
+        cprId: req.session.user.username
+      })
     }
 
     if (!userOrPatient) {
-      return res.send('User not found.');
+      return res.send('User not found.')
     }
 
-    res.render('profile.ejs', { user: userOrPatient });
+    req.session.user.profilePicture = userOrPatient.profilePicture?.data
+      ? `/profile-picture/${userOrPatient._id}`
+      : '/uploads/default-profile.png'
+
+    res.render('profile.ejs', { user: req.session.user })
   } catch (err) {
-    console.error('Error loading profile page:', err);
-    res.send('Internal Server Error.');
+    console.error('Error loading profile page:', err)
+    res.send('Internal Server Error.')
   }
 });
 router.get('/resetpass', (req, res) => {
