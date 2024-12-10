@@ -24,7 +24,8 @@ const patientSchema = new mongoose.Schema(
     cprId: {
       type: Number,
       unique: true,
-      required: true
+      required: true,
+      
     },
     urgencyLevel: {
       type: mongoose.Schema.Types.ObjectId,

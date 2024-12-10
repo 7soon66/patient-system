@@ -52,7 +52,7 @@ router.post('/sign-in', async (req, res) => {
 
     const patient = await Patient.findOne({ cprId: username })
     if (patient) {
-      req.session.user = { username, role: 'Patient' }
+      req.session.user = { username, role: 'Patient', profilePicture: patient.profilePicture }
       return res.redirect('/patients/me')
     }
 
