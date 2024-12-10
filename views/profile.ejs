@@ -1,6 +1,6 @@
 <head>
   <title>Profile</title>
-  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 
 <body class="page" id="profile-page">
@@ -9,8 +9,9 @@
   <div class="profile-container">
     <h1 id="h1-profile-user">User Profile</h1>
     <img
-      src="<%= user.profilePicture || '/default-profile.png' %>"
-      class="profile-picture"
+      src="<%= user.profilePicture %>"
+      alt="Profile Picture"
+      style="border-radius: 50%; width: 100px; height: 100px"
     />
 
     <h2>Welcome, <%= user.username %></h2>
@@ -26,5 +27,5 @@
       <input type="file" name="profilePicture" accept="image/*" required />
       <button type="submit">Upload</button>
     </form>
-    </div>
-  </body>
+  </div>
+</body>
