@@ -17,8 +17,8 @@ const userSchema = new mongoose.Schema({
     default: 'Patient'
   },
   profilePicture: {
-    type: String,
-    default: '/uploads/default-profile.jpg' 
+    data: Buffer,
+    contentType: String
   }
 })
 
