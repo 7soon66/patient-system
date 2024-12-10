@@ -1,5 +1,5 @@
 const express = require('express')
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const Patient = require('../models/patient')
 const isSignedIn = require('../middleware/is-signed-in')
@@ -14,20 +14,20 @@ router.post('/sign-up', async (req, res) => {
   const { username, password } = req.body
   try {
     if (!username || !password)
-      return res.status(400).send('Username and password required.')
+      return res.send('Username and password required.')
 
     const patient = await Patient.findOne({ cprId: username })
-    if (!patient) return res.status(400).send('Invalid CPR ID.')
+    if (!patient) return res.send('Invalid CPR ID.')
 
     const existingUser = await User.findOne({ username })
-    if (existingUser) return res.status(400).send('Username exists.')
+    if (existingUser) return res.send('Username exists.')
 
     const hashedPassword = await bcrypt.hash(password, 10)
     await User.create({ username, password: hashedPassword, role: 'Patient' })
     res.redirect('/auth/sign-in')
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error signing up.')
+    res.send('Error signing up.')
   }
 })
 
@@ -47,7 +47,7 @@ router.post('/sign-in', async (req, res) => {
         req.session.user = admin
         return res.redirect('/')
       }
-      return res.status(400).send('Invalid password.')
+      return res.send('Invalid password.')
     }
 
     const patient = await Patient.findOne({ cprId: username })
@@ -56,10 +56,10 @@ router.post('/sign-in', async (req, res) => {
       return res.redirect('/patients/me')
     }
 
-    res.status(400).send('Invalid username or CPR ID.')
+    res.send('Invalid username or CPR ID.')
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error signing in.')
+    res.send('Error signing in.')
   }
 })
 
@@ -82,13 +82,13 @@ router.get('/profile', isSignedIn, async (req, res) => {
     }
 
     if (!userOrPatient) {
-      return res.status(404).send('User not found.');
+      return res.send('User not found.');
     }
 
     res.render('profile.ejs', { user: userOrPatient });
   } catch (err) {
     console.error('Error loading profile page:', err);
-    res.status(500).send('Internal Server Error.');
+    res.send('Internal Server Error.');
   }
 });
 

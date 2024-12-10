@@ -15,6 +15,7 @@ const path = require('path')
 const Department = require('./models/department')
 const Urgency = require('./models/urgency')
 
+
 // upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -41,7 +42,9 @@ const profilePictureRoutes = require('./controllers/profilePictures')
 const app = express()
 
 // Configure port
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 4000
+
+app.use(express.static('public'));
 
 // Connect to MongoDB
 mongoose
@@ -49,10 +52,10 @@ mongoose
   .then(async () => {
     console.log(`Connected to MongoDB Database: ${mongoose.connection.name}.`)
 
-    await Department.initialize()
-    await Urgency.initialize()
+    // await Department.initialize()
+    // await Urgency.initialize()
 
-    // Start the server
+    // // Start the server
     app.listen(PORT, () => {
       console.log(`The Express app is running on port ${PORT}`)
     })
@@ -65,6 +68,9 @@ mongoose
 app.use(express.urlencoded({ extended: false }))
 app.use(methodOverride('_method'))
 app.use(morgan('dev'))
+
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
@@ -83,7 +89,15 @@ app.set('view engine', 'ejs')
 app.use('/auth', authCtrl)
 app.use('/departments', departmentCtrl)
 app.use('/patients', patientCtrl)
+
+
 // Root route
 app.get('/', (req, res) => {
-  res.render('index.ejs')
+  res.render('index.ejs');
+});
+
+
+// upload 
+app.get('/upload', (req, res) => {
+  res.render('upload')
 })

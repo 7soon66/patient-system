@@ -40,7 +40,7 @@ router.post(
       }
 
       if (!userOrPatient) {
-        return res.status(404).send('User not found.')
+        return res.send('User not found.')
       }
 
       // Update the profilePicture field
@@ -50,7 +50,7 @@ router.post(
       res.redirect('/auth/profile')
     } catch (err) {
       console.error('Error uploading profile picture:', err)
-      res.status(500).send('Error uploading profile picture.')
+      res.send('Error uploading profile picture.')
     }
   }
 )
