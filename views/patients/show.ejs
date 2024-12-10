@@ -1,12 +1,13 @@
 <head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <title>Patient Details</title>
 </head>
 
-<body>
+<body class="page" id="show-page">
   <%- include('../partials/_navbar.ejs') %>
-
-  <h1>Patient Details</h1>
-
+<div class="Details-page">
+  <h1 id="h1-details">Patient Details</h1>
+<div id="all-details">
   <p><strong>Name:</strong> <%= patient.name %></p>
   <p><strong>Age:</strong> <%= patient.age %></p>
   <p><strong>Gender:</strong> <%= patient.gender %></p>
@@ -21,34 +22,20 @@
   <p>
     <strong>Last Updated:</strong> <%= patient.updatedAt.toLocaleString() %>
   </p>
-
-  <h2>Visitation Logs</h2>
-  <% if (patient.visitationLog && patient.visitationLog.length > 0) { %>
-  <ul>
-    <% patient.visitationLog.forEach(log => { %>
-    <li>
-      <p>
-        <strong>Date:</strong> <%= log.date ? log.date.toLocaleDateString() :
-        'N/A' %>
-      </p>
-      <p><strong>Department:</strong> <%= log.department.name %></p>
-      <p><strong>Urgency Level:</strong> <%= log.urgencyLevel.level %></p>
-      <p><strong>Notes:</strong> <%= log.notes || 'No notes available' %></p>
-    </li>
-    <% }); %>
-  </ul>
-  <% } else { %>
-  <p>No visitation logs available.</p>
-  <% } %> <% if (user && user.role === 'Admin') { %>
-  <a href="/patients/<%= patient._id %>/edit">Edit</a>
+</div>
+  
+  <% if (user && user.role === 'Admin') { %>
+  <a href="/patients/<%= patient._id %>/edit" id="view-edit-link">Edit</a>
   <form
     action="/patients/<%= patient._id %>?_method=DELETE"
     method="POST"
     style="display: inline"
   >
-    <button type="submit">Delete</button>
+    <button type="submit" id="view-delete-botton">Delete</button>
   </form>
   <% } %>
 
-  <a href="/patients">Back to List</a>
+  <a href="/patients" id="view-back-link">Back to List</a>
+</div>
+</div>
 </body>

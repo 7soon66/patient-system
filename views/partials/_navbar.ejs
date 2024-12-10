@@ -1,8 +1,14 @@
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Document</title>
+</head>
+<body id="navbar">  
 <% if (user) { %>
-  <a href="/">Home</a>
-  <a href="/patients">View all Patients</a>
-  <a href="/auth/sign-out">Sign Out</a>
+  <a href="/" id="home-link">Home</a>
+  <a href="/patients" id="view-link">View all Patients</a>
+  <a href="/auth/sign-out" id="sign-out-link">Sign Out</a>
 <% } else { %>
-  <a href="/auth/sign-up">Sign Up</a>
-  <a href="/auth/sign-in">Sign In</a>
+  <a href="/auth/sign-up" id="sign-up-link">Sign Up</a>
+  <a href="/auth/sign-in" id="sign-in-link">Sign In</a>
 <% } %>
+</body>

@@ -1,11 +1,21 @@
-<body>
-    <%- include('./partials/_navbar.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <title>Document</title>
+</head>
+    <body class="page" id="sign-page">
+        <%- include('./partials/_navbar.ejs') %>
+        
+        <% if (user && user.profile_image) { %>
+        <img src="<%= user.profile_image %>" alt="profile Image" width="200">
+        <% } else { %>
+    <p>No profile image available</p>
+        <% } %>
     
-    <% if (user && user.profile_image) { %>
-    <img src="<%= user.profile_image %>" alt="profile Image" width="200">
-    <% } else { %>
-<p>No profile image available</p>
-    <% } %>
+        <h1 id="home-wlc">Welcome to the Patient System App!</h1>
+    </body>
 
-    <h1>Welcome to the Patient System App!</h1>
-</body>
+</html>

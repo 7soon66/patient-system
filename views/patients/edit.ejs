@@ -1,40 +1,39 @@
 <head>
-  <title>Edit Patient</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+<title>Edit Patient</title>
 </head>
 
-<head>
-  <title>Edit Patient</title>
-</head>
-
-<body>
+<body class="page" id="edit-page">
   <%- include('../partials/_navbar.ejs') %>
 
-  <h1>Edit Patient</h1>
+<div class="edit-page">
+
+  <h1 id="h1-edit-page">Edit Patient</h1>
 
   <form action="/patients/<%= patient._id %>?_method=PUT" method="POST">
     <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" value="<%= patient.name %>" required>
+      <label for="name" id="name-edit">Name:</label>
+      <input type="text" class="edit-name" id="name" name="name" value="<%= patient.name %>" required>
     </div>
     <div>
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" value="<%= patient.age %>" required>
+      <label for="age" id="age-edit">Age:</label>
+      <input type="number" class="edit-age" id="age" name="age" value="<%= patient.age %>" required>
     </div>
     <div>
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
+      <label for="gender" id="gender-edit">Gender:</label>
+      <select class="edit-gender" id="gender" name="gender" required>
         <option value="Male" <%= patient.gender === 'Male' ? 'selected' : '' %>>Male</option>
         <option value="Female" <%= patient.gender === 'Female' ? 'selected' : '' %>>Female</option>
         <option value="Other" <%= patient.gender === 'Other' ? 'selected' : '' %>>Other</option>
       </select>
     </div>
     <div>
-      <label for="cprId">CPR ID:</label>
-      <input type="text" id="cprId" name="cprId" value="<%= patient.cprId %>" required>
+      <label for="cprId" id="cpr-edit">CPR ID:</label>
+      <input type="text" class="edit-cpr" id="cprId" name="cprId" value="<%= patient.cprId %>" required>
     </div>
     <div>
-      <label for="department">Department:</label>
-      <select id="department" name="department" required>
+      <label for="department" id="department-edit">Department:</label>
+      <select class="edit-department" id="department" name="department" required>
         <% departments.forEach(department => { %>
         <option value="<%= department._id %>" <%= patient.department.equals(department._id) ? 'selected' : '' %>>
           <%= department.name %> - <%= department.description %>
@@ -43,8 +42,8 @@
       </select>
     </div>
     <div>
-      <label for="urgencyLevel">Urgency Level:</label>
-      <select id="urgencyLevel" name="urgencyLevel" required>
+      <label for="urgencyLevel" id="urgency-edit">Urgency Level:</label>
+      <select class="edit-urgency" id="urgencyLevel" name="urgencyLevel" required>
         <% urgencies.forEach(urgency => { %>
         <option value="<%= urgency._id %>" <%= patient.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
           <%= urgency.level %>
@@ -52,7 +51,7 @@
         <% }) %>
       </select>
     </div>
-
+<!-- 
     <h3>Edit Visitation Logs</h3>
     <% if (patient.visitationLogs && patient.visitationLogs.length > 0) { %>
     <% patient.visitationLogs.forEach((log, index) => { %>
@@ -169,8 +168,9 @@
     <% }) %>
     <% } else { %>
     <p>No visitation logs available.</p>
-    <% } %>
+    <% } %> -->
 
-    <button type="submit">Update Patient</button>
+    <button type="submit" id="submit-edit">Update information</button>
   </form>
+</div>
 </body>

@@ -1,31 +1,26 @@
 <head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
   <title>Create New Patient</title>
 </head>
 
-<head>
-  <title>Create New Patient</title>
-</head>
-
-<body>
+<body class="page" id="new-page">
   <%- include('../partials/_navbar.ejs') %>
 
-  <h1>Add New Patient</h1>
-  <%- include('../partials/_navbar.ejs') %>
-
-  <h1>Add New Patient</h1>
+<div class="create-new">
+  <h1 id="h1-create-new">Add New Patient</h1>
 
   <form action="/patients" method="POST">
     <div>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required>
+      <label for="name" id="create-name">Name:</label>
+      <input type="text" class="name-input" id="name" name="name" required>
     </div>
     <div>
-      <label for="age">Age:</label>
-      <input type="number" id="age" name="age" required>
+      <label for="age" id="create-age">Age:</label>
+      <input type="number" class="age-input" id="age" name="age" required>
     </div>
     <div>
-      <label for="gender">Gender:</label>
-      <select id="gender" name="gender" required>
+      <label for="gender" id="create-gender">Gender:</label>
+      <select class="gender-input" id="gender" name="gender" required>
         <option value="" >---select gender---</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
@@ -33,12 +28,12 @@
       </select>
     </div>
     <div>
-      <label for="cprId">CPR ID:</label>
-      <input type="text" id="cprId" name="cprId" required>
+      <label for="cprId" id="create-cpr">CPR ID:</label>
+      <input type="text" class="cpr-input" id="cprId" name="cprId" required>
     </div>
     <div>
-      <label for="department">Department:</label>
-      <select id="department" name="department" >
+      <label for="department" id="create-department">Department:</label>
+      <select class="department-input" id="department" name="department" >
         <option value=" " selected>---select department---</option>
         <% departments.forEach(department => { %>
           
@@ -49,9 +44,9 @@
       </select>
     </div>
     <div>
-      <label for="urgencyLevel">Urgency Level:</label>
+      <label for="urgencyLevel" id="create-urgency">Urgency Level:</label>
       
-      <select id="urgencyLevel" name="urgencyLevel" required>
+      <select class="urgency-input" id="urgencyLevel" name="urgencyLevel" required>
         
         <option value="">---select urgency level---</option>
         <% urgencies.forEach(urgency => { %>
@@ -60,19 +55,20 @@
       </select>
     </div>
 
-    <h3>Add Visitation Log</h3>
+    <h3 id="h3-add">Add Visitation Log</h3>
     <div>
-      <label for="logNotes">Visitation Notes:</label>
-      <textarea id="logNotes" name="logNotes" rows="4" cols="50" placeholder="Enter details about the visitation..."></textarea>
+      <label for="logNotes" id="create-note">Visitation Notes:</label>
+      <textarea class="note-input" id="logNotes" name="logNotes" rows="4" cols="50" placeholder="Enter details about the visitation..."></textarea>
     </div>
     <div>
-      <label for="visitDate">Visit Date:</label>
-      <input type="date" id="visitDate" name="visitDate" required>
+      <label for="visitDate" id="create-date">Visit Date:</label>
+      <input type="date" class="date-input" id="visitDate" name="visitDate" required>
     </div>
 
     
 
-    <button type="submit">Add Patient</button>
+    <button type="submit" id="submit-add">Add Patient</button>
   </form>
+</div>
 </body>
 

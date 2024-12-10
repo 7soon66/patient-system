@@ -1,0 +1,758 @@
+.page 
+{
+    background-image: url('../image/Background.jpeg');
+    background-size: 145%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#home-wlc 
+{
+    font-family: 'Arial', sans-serif;
+    font-size: 78px;
+    color: #FCF5C7;
+    text-align: center;
+    font-weight: bold; 
+    text-transform: uppercase;
+    letter-spacing: 2px; 
+    padding: 5px; 
+    margin: 40px;
+    width: 1000px;
+    position: relative;
+    left: 180px;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 40px;
+    border: 4px solid #FCF5C7;
+}
+
+#sign-up-link
+{
+    color: aqua;
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    left: 10px ;
+}
+
+#sign-in-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    left: 20px;
+    font-weight: bold;
+}
+
+#home-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    left: 10px;
+}
+
+#view-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    left: 30px;
+}
+
+#sign-out-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    left: 50px;
+}
+
+/* sign-in */
+
+.sign-in
+{
+    position: relative;
+    top: 100px;
+    left: 350px;
+    padding: 10px;
+
+}
+
+#username-in
+{
+    width: 500px;
+    height: 30px;
+    position: relative;
+    top: 50px;
+    right: 139px;
+    font-size: 30PX;
+    
+}
+
+#password-in
+{
+    position: relative;
+    width: 500px;
+    height: 30px;
+    top: 110px;
+    right: 135px;
+    font-size: 30PX;
+}
+
+#submit-sign-in
+{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    width: 300px;
+    height: 60px;
+    font-size: 30px;
+    position: relative;
+    top: 150px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7;
+}
+
+#h1-sign-in
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 60px;
+}
+
+#username-sign-in
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 30px;
+}
+
+#password-sign-in
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 30px;
+    position: relative;
+    top: 60px;
+}
+
+
+
+/* sign-up */
+
+.sign-up
+{
+    position: relative;
+    top: 100px;
+    left: 350px;
+    padding: 10px;
+}
+#h1-create-new
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 50px;
+    position: relative;
+    bottom: 50px;
+    right: 50px;
+}
+
+#username-sign-up
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 30px;
+    position: relative;
+    bottom: 40px;
+    right: 30px;
+}
+
+#username-up
+{
+    width: 500px;
+    height: 30px;
+    position: relative;
+    top: 10px;
+    right: 170px;
+    font-size: 25PX;
+}
+
+#password-sign-up
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 30px;
+    position: relative;
+    right: 30px;
+    top: 30px;
+}
+
+#password-up
+{
+    position: relative;
+    width: 500px;
+    height: 30px;
+    top: 80px;
+    right: 163px;
+    font-size: 30PX;
+}
+
+#confirm-password
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 30px;
+    position: relative;
+    right: 30px;
+    top: 100px;
+}
+
+#confirmPassword
+{
+    position: relative;
+    width: 500px;
+    height: 30px;
+    top: 150px;
+    right: 275px;
+    font-size: 30PX;
+}
+
+#submit-sign-up
+{
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    width: 300px;
+    height: 60px;
+    font-size: 30px;
+    position: relative;
+    top: 200px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7;
+}
+
+/* view all patient */
+
+.patient-list-page
+{
+    position: relative;
+    top: 100px;
+    left: 350px;
+    padding: 10px;
+}
+
+#h1-patient-list
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 60px;
+    position: relative;
+    bottom: 80px;
+    right: 180px;
+}
+
+#add-link
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: aqua;
+    font-size: 25px;
+    position: relative;
+    bottom: 110px;
+    right: 160px;
+}
+
+#info-name
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    right: 160px;
+    bottom: 100px;
+}
+
+
+#info-age
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    right: 110px;
+    bottom: 100px;
+    text-align: center;
+}
+
+#info-gender
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    right: 80px;
+    bottom: 100px;
+    text-align: center;
+}
+
+#info-department
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    right: 30px;
+    bottom: 100px;
+    text-align: center;
+}
+
+#info-actions
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    right: 10px;
+    bottom: 100px;
+    text-align: center;
+}
+
+#view-link
+{
+    color: aqua;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#edit-link
+{
+    color: aqua;
+    font-size: 25px;
+    font-weight: bold;
+    position: relative;
+    left: 40px;
+}
+
+#submit-delete
+{
+    width: 90px;
+    height: 40px;
+    font-size: 20px;
+    position: relative;
+    left:50px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7;
+}
+
+/* create new patient */
+
+.create-new 
+{
+    position: relative;
+    top: 100px;
+    left: 350px;
+    padding: 10px;
+}
+
+#h1-create-new
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 40px;
+    position: relative;
+    bottom: 100px;
+    right: 100px;
+}
+
+#create-name
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 100px;
+    right: 100px;
+}
+
+.name-input
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 100px;
+    right: 10px;
+}
+
+#create-age
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 93px;
+    right: 100px;
+}
+
+.age-input
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 93px;
+    left: 7px;
+}
+
+#create-gender
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 85px;
+    right: 100px;
+}
+
+.gender-input
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 85px;
+    right: 25px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#create-cpr
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 79px;
+    right: 100px;
+}
+
+.cpr-input
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 82px;
+    right: 31px;
+}
+
+#create-department
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 75px;
+    right: 100px;
+}
+
+.department-input
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 75px;
+    right: 70px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#create-urgency
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 70px;
+    right: 100px;
+}
+
+.urgency-input
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 70px;
+    right: 100px;
+    text-align: center;
+    font-size: 20px;
+}
+
+#create-note
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 180px;
+    right: 100px;
+}
+
+.note-input
+{
+    width: 700px;
+    height: 100px;
+    position: relative;
+    bottom: 70px;
+    right: 275px;
+    font-size: 20px;
+    color: black;
+}
+
+#create-date
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 70px;
+    right: 100px;
+}
+
+.date-input
+{
+    width: 400px;
+    height: 30px;
+    position: relative;
+    bottom: 40px;
+    right: 210px;
+    font-size: 20px;
+}
+
+#submit-add
+{
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+    color: black;
+    font-weight: bold;
+    position: relative;
+    bottom: 20px;
+    right: 90px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7
+}
+
+#h3-add
+{
+    color: #FCF5C7;
+    font-size: 40PX;
+    position: relative;
+    bottom: 80px;
+    right: 100px;
+}
+
+/* details page */
+
+.details-page
+{
+    position: relative;
+    bottom: 20px;
+    left: 350px;
+    padding: 10px;
+}
+
+#h1-details
+{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color:#FCF5C7;
+    font-size: 40px;
+    position: relative;
+    right: 100px;
+    top: 50px;
+}
+
+#all-details
+{
+    color: #FCF5C7;
+    font-size: 20px;
+    position: relative;
+    top: 50px;
+    right: 100px;
+}
+
+#view-edit-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    top: 50px;
+    right: 100px;
+    font-weight: bold;
+
+}
+
+#view-delete-botton
+{
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    top: 50px;
+    left: 150px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7
+}
+
+#view-back-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    top: 50px;
+    right: 300px;
+    font-weight: bold;
+}
+
+/* edit page */
+
+.edit-page
+{
+    position: relative;
+    top: 100px;
+    left: 350px;
+    padding: 10px;
+}
+
+#h1-edit-page
+{
+    color: #FCF5C7;
+    font-size: 40px;
+    position: relative;
+    bottom: 50px;
+    right: 100px;
+}
+
+#name-edit
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 50px;
+    right: 90px;
+}
+
+.edit-name
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 50px;
+    left: 10px;
+}
+
+#age-edit
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 40px;
+    right: 90px;
+}
+
+.edit-age
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 43px;
+    left: 29px;
+}
+
+#gender-edit
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 30px;
+    right: 90px;
+}
+
+.edit-gender
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 33px;
+    right: 3px;
+}
+
+#cpr-edit
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 20px;
+    right: 90px;
+}
+
+.edit-cpr
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 23px;
+    right: 10px;
+}
+
+#department-edit
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    bottom: 10px;
+    right: 90px;
+}
+
+.edit-department
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 13px;
+    right: 48px;
+}
+
+#urgency-edit
+{
+    color: #FCF5C7;
+    font-size: 25px;
+    position: relative;
+    right: 90px;
+}
+
+.edit-urgency
+{
+    width: 500px;
+    height: 25px;
+    position: relative;
+    bottom: 3px;
+    right: 80px;
+}
+
+#submit-edit
+{
+    width: 300px;
+    height: 44px;
+    font-size: 20px;
+    font-weight: bold;
+    position: relative;
+    top: 30px;
+    left: 200px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
