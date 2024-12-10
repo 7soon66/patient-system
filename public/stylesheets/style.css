@@ -50,6 +50,7 @@
     font-size: 30px;
     position: relative;
     left: 10px;
+    bottom: 30px;
 }
 
 #view-link
@@ -58,6 +59,7 @@
     font-size: 30px;
     position: relative;
     left: 30px;
+    bottom: 30px;
 }
 
 #sign-out-link
@@ -66,6 +68,45 @@
     font-size: 30px;
     position: relative;
     left: 50px;
+    bottom: 30px;
+}
+
+#profile-icon
+{
+    position: relative;
+    left: 1400px;
+    top: 20px;
+}
+
+/* profile */
+
+.profile-container
+{
+    text-align: center;
+    margin: 20px;
+}
+.profile-picture
+{
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 5px solid #FCF5C7;
+}
+.form-container
+{
+    margin: 20px auto;
+    width: 300px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#h1-profile-user
+{
+    color: #FCF5C7;
+    font-size: 40px;
 }
 
 /* sign-in */
