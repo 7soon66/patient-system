@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const departments = await Department.find({})
     res.json(departments)
   } catch (err) {
-    res.status(500).send('Error fetching departments.')
+    res.send('Error fetching departments.')
   }
 })
 
