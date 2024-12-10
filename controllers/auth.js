@@ -90,11 +90,11 @@ router.get('/profile', isSignedIn, async (req, res) => {
       return res.send('User not found.')
     }
 
-    const profilePicture = `/profile-picture/${userOrPatient._id}`
+    req.session.user.profilePicture = userOrPatient.profilePicture?.data
+      ? `/profile-picture/${userOrPatient._id}`
+      : '/uploads/default-profile.png'
 
-    res.render('profile.ejs', {
-      user: { ...userOrPatient.toObject(), profilePicture }
-    })
+    res.render('profile.ejs', { user: req.session.user })
   } catch (err) {
     console.error('Error loading profile page:', err)
     res.send('Internal Server Error.')
