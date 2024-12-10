@@ -138,8 +138,6 @@ router.put('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
     res.send('Patient not found.')
   }
 })
-router.get('/profile/reset-password', (req, res) => {
-  res.render('profile/reset-password');
-});
+
 
 module.exports = router
