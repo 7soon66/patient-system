@@ -1,18 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/stylesheets/style.css">
+<title>Document</title>
+</head>
 <body>
-  <%- include('../partials/_navbar.ejs') %>
   
-  <h1>Sign In</h1>
+</body>
+</html>
+<body class="page" id="sign-in">
+  <%- include('../partials/_navbar.ejs') %>
+  <div class="sign-in">
+  <h1 id="h1-sign-in">Sign In</h1>
   <form action="/auth/sign-in" method="POST">
-    <label>Username:</label>
-    <input type="text" name="username" id="username" />
+    <label id="username-sign-in">Username:</label>
+    <input type="text" name="username" id="username-in" />
 
     <br />
 
-    <label>Password:</label>
-    <input type="password" name="password" id="password" />
+    <label id="password-sign-in">Password:</label>
+    <input type="password" name="password" id="password-in" />
 
     <br />
 
-    <button type="submit">Sign In</button>
+    <button type="submit" id="submit-sign-in">Sign In</button>
+    </div>
   </form>
 </body>
