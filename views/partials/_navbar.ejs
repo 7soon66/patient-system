@@ -1,7 +1,6 @@
 <nav id="navbar">
   <% if (user) { %>
   <div>
-    <!-- Profile link with picture and username -->
     <div id="profile-icon">
     <a href="/auth/profile"></span>
       <img src="<%= user.profilePicture %>" id="profile-image"  width="60" height="60" style="border-radius: 50%;">
@@ -14,8 +13,9 @@
   <% } %> -->
   <a href="/auth/sign-out" id="sign-out-link">Sign Out</a>
   <% } else { %>
-  <a href="/auth/sign-up" id="sign-up-link">Sign Up</a>
-  <a href="/auth/sign-in" id="sign-in-link">Sign In</a>
-  <% } %>
+  <div>
+    <a href="/auth/sign-up" id="sign-up-link">Sign Up</a>
+    <a href="/auth/sign-in" id="sign-in-link">Sign In</a>
   </div>
+  <% } %>
 </nav>
