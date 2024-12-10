@@ -8,7 +8,7 @@ const isSignedIn = require('../middleware/is-signed-in')
 // Only admins allowed
 const requireAdmin = (req, res, next) => {
   if (req.session.user.role === 'Admin') return next()
-  res.status(403).send('Admins only.')
+  res.send('Admins only.')
 }
 
 // GET all patients (Admin)
@@ -17,7 +17,7 @@ router.get('/', isSignedIn, requireAdmin, async (req, res) => {
     const patients = await Patient.find().populate('department urgencyLevel')
     res.render('patients/index.ejs', { patients, user: req.session.user })
   } catch (err) {
-    res.status(500).send('Error fetching patients.')
+    res.send('Error fetching patients.')
   }
 })
 
@@ -30,7 +30,7 @@ router.get('/new', isSignedIn, requireAdmin, async (req, res) => {
     res.render('patients/new.ejs', { departments, urgencies, currentDate })
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error loading form.')
+    res.send('Error loading form.')
   }
 })
 
@@ -39,7 +39,7 @@ router.post('/', isSignedIn, requireAdmin, async (req, res) => {
   try {
     const { name, age, gender, cprId, department, urgencyLevel } = req.body
     if (!name || !age || !gender || !cprId || !department || !urgencyLevel) {
-      return res.status(400).send('All fields required.')
+      return res.send('All fields required.')
     }
 
     const [dept, urgency] = await Promise.all([
@@ -47,15 +47,15 @@ router.post('/', isSignedIn, requireAdmin, async (req, res) => {
       Urgency.findById(urgencyLevel)
     ])
 
-    if (!dept) return res.status(400).send('Invalid department.')
-    if (!urgency) return res.status(400).send('Invalid urgency level.')
+    if (!dept) return res.send('Invalid department.')
+    if (!urgency) return res.send('Invalid urgency level.')
 
     const patientData = { ...req.body, userId: req.session.user._id }
     await Patient.create(patientData)
     res.redirect('/patients')
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error creating patient.')
+    res.send('Error creating patient.')
   }
 })
 
@@ -63,17 +63,17 @@ router.post('/', isSignedIn, requireAdmin, async (req, res) => {
 router.get('/me', isSignedIn, async (req, res) => {
   try {
     if (req.session.user.role !== 'Patient') {
-      return res.status(403).send('Patients only.')
+      return res.send('Patients only.')
     }
     const patient = await Patient.findOne({
       cprId: req.session.user.username
     }).populate('department urgencyLevel userId')
 
-    if (!patient) return res.status(404).send('Patient not found.')
+    if (!patient) return res.send('Patient not found.')
     res.render('patients/show.ejs', { patient, user: req.session.user })
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error fetching patient.')
+    res.send('Error fetching patient.')
   }
 })
 
@@ -81,10 +81,10 @@ router.get('/me', isSignedIn, async (req, res) => {
 router.get('/:patientId', isSignedIn, async (req, res) => {
   try {
     const patient = await Patient.findById(req.params.patientId).populate(
-      'department urgencyLevel userId visitationLogs.department visitationLogs.urgencyLevel'
+      'department urgencyLevel userId'
     )
 
-    if (!patient) return res.status(404).send('Patient not found.')
+    if (!patient) return res.send('Patient not found.')
 
     if (
       req.session.user.role.toLowerCase() === 'admin' ||
@@ -92,11 +92,11 @@ router.get('/:patientId', isSignedIn, async (req, res) => {
     ) {
       res.render('patients/show.ejs', { patient, user: req.session.user })
     } else {
-      res.status(403).send('Access denied.')
+      res.send('Access denied.')
     }
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error fetching patient.')
+    res.send('Error fetching patient.')
   }
 })
 
@@ -106,7 +106,7 @@ router.delete('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
     await Patient.findByIdAndDelete(req.params.patientId)
     res.redirect('/patients')
   } catch (err) {
-    res.status(404).send('Patient not found.')
+    res.send('Patient not found.')
   }
 })
 
@@ -116,14 +116,14 @@ router.get('/:id/edit', isSignedIn, requireAdmin, async (req, res) => {
     const patient = await Patient.findById(req.params.id).populate(
       'department urgencyLevel'
     )
-    if (!patient) return res.status(404).send('Patient not found.')
+    if (!patient) return res.send('Patient not found.')
 
     const departments = await Department.find()
     const urgencies = await Urgency.find()
     res.render('patients/edit.ejs', { patient, departments, urgencies })
   } catch (err) {
     console.error(err)
-    res.status(500).send('Error loading edit form.')
+    res.send('Error loading edit form.')
   }
 })
 
@@ -135,67 +135,8 @@ router.put('/:patientId', isSignedIn, requireAdmin, async (req, res) => {
     })
     res.redirect('/patients')
   } catch (err) {
-    res.status(404).send('Patient not found.')
+    res.send('Patient not found.')
   }
 })
-
-// POST add visitation log (Admin)
-router.post('/:patientId/log', isSignedIn, requireAdmin, async (req, res) => {
-  try {
-    const { patientId } = req.params
-    const { department, urgencyLevel, notes, date } = req.body
-    if (!department || !urgencyLevel || !date)
-      return res.status(400).send('All fields required.')
-
-    const patient = await Patient.findById(patientId)
-    if (!patient) return res.status(404).send('Patient not found.')
-
-    patient.visitationLog.push({
-      department,
-      urgencyLevel,
-      notes,
-      date: new Date(date)
-    })
-
-    await patient.save()
-    res.redirect(`/patients/${patientId}`)
-  } catch (err) {
-    console.error(err)
-    res.status(500).send('Error adding visitation log.')
-  }
-})
-
-// PUT edit visitation log (Admin)
-router.put(
-  '/:patientId/log/:logId',
-  isSignedIn,
-  requireAdmin,
-  async (req, res) => {
-    try {
-      const { patientId, logId } = req.params
-      const { department, urgencyLevel, summary, date } = req.body
-      if (!department || !urgencyLevel || !summary || !date) {
-        return res.status(400).send('All fields required.')
-      }
-
-      const patient = await Patient.findById(patientId)
-      if (!patient) return res.status(404).send('Patient not found.')
-
-      const log = patient.visitationLogs.id(logId)
-      if (!log) return res.status(404).send('Log not found.')
-
-      log.department = department
-      log.urgencyLevel = urgencyLevel
-      log.summary = summary
-      log.date = new Date(date)
-
-      await patient.save()
-      res.redirect(`/patients/${patientId}`)
-    } catch (err) {
-      console.error(err)
-      res.status(500).send('Error editing visitation log.')
-    }
-  }
-)
 
 module.exports = router

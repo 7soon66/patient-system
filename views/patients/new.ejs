@@ -24,7 +24,7 @@
         <option value="" >---select gender---</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-        <option value="Other">Other</option>  
+        <option value="Other">Other</option>
       </select>
     </div>
     <div>
@@ -36,11 +36,12 @@
       <select class="department-input" id="department" name="department" >
         <option value=" " selected>---select department---</option>
         <% departments.forEach(department => { %>
-          
-          <option value="<%= department._id %>"><%= department.name %> - <%= department.description %></option>
-          
+
+        <option value="<%= department._id %>">
+          <%= department.name %> - <%= department.description %>
+        </option>
+
         <% }) %>
-        
       </select>
     </div>
     <div>
@@ -50,19 +51,19 @@
         
         <option value="">---select urgency level---</option>
         <% urgencies.forEach(urgency => { %>
-          <option value="<%= urgency._id %>"><%= urgency.level %></option>
+        <option value="<%= urgency._id %>"><%= urgency.level %></option>
         <% }) %>
       </select>
     </div>
 
-    <h3 id="h3-add">Add Visitation Log</h3>
+    <h3>Add Visitation Log</h3>
     <div>
-      <label for="logNotes" id="create-note">Visitation Notes:</label>
-      <textarea class="note-input" id="logNotes" name="logNotes" rows="4" cols="50" placeholder="Enter details about the visitation..."></textarea>
+      <label for="logNotes">Visitation Notes:</label>
+      <textarea id="logNotes" name="logNotes" rows="4" cols="50" placeholder="Enter details about the visitation..."></textarea>
     </div>
     <div>
-      <label for="visitDate" id="create-date">Visit Date:</label>
-      <input type="date" class="date-input" id="visitDate" name="visitDate" required>
+      <label for="visitDate">Visit Date:</label>
+      <input type="date" id="visitDate" name="visitDate" required>
     </div>
 
     
@@ -71,4 +72,3 @@
   </form>
 </div>
 </body>
-

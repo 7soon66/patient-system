@@ -1,51 +1,58 @@
-const express = require('express');
-const multer = require('multer');
-const path = require('path');
-const router = express.Router();
+const express = require('express')
+const multer = require('multer')
+const path = require('path')
+const User = require('../models/user')
+const Patient = require('../models/patient')
 
-// Multer storage configuration
+const router = express.Router()
+
+// Configure Multer storage
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
+  destination: (req, file, cb) => {
+    cb(null, 'public/uploads/')
   },
-  filename: function (req, file, cb) {
-    const uniqueName = `${Date.now()}-${file.originalname}`;
-    cb(null, uniqueName);
-  },
-});
-
-// Filter to allow only image files
-const fileFilter = (req, file, cb) => {
-  const allowedFileTypes = /jpeg|jpg|png|gif/;
-  const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimetype = allowedFileTypes.test(file.mimetype);
-
-  if (extname && mimetype) {
-    cb(null, true);
-  } else {
-    cb(new Error('Only images are allowed'));
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      `${
+        req.session.user._id || req.session.user.username
+      }-${Date.now()}${path.extname(file.originalname)}`
+    )
   }
-};
+})
 
-// Multer instance
-const upload = multer({
-  storage: storage,
-  fileFilter: fileFilter,
-  limits: { fileSize: 2 * 1024 * 1024 }, // 2MB limit
-});
+const upload = multer({ storage })
 
-// Profile picture upload route
-router.post('/upload', upload.single('profilePicture'), (req, res) => {
-  try {
-    if (!req.file) {
-      return res.status(400).send('No file uploaded');
+// POST route to upload profile picture
+router.post(
+  '/profile-picture/upload',
+  upload.single('profilePicture'),
+  async (req, res) => {
+    try {
+      let userOrPatient
+
+      if (req.session.user.role === 'Admin') {
+        userOrPatient = await User.findById(req.session.user._id)
+      } else if (req.session.user.role === 'Patient') {
+        userOrPatient = await Patient.findOne({
+          cprId: req.session.user.username
+        })
+      }
+
+      if (!userOrPatient) {
+        return res.send('User not found.')
+      }
+
+      // Update the profilePicture field
+      userOrPatient.profilePicture = `/uploads/${req.file.filename}`
+      await userOrPatient.save()
+
+      res.redirect('/auth/profile')
+    } catch (err) {
+      console.error('Error uploading profile picture:', err)
+      res.send('Error uploading profile picture.')
     }
-    const filePath = `/uploads/${req.file.filename}`;
-
-    res.send(`File uploaded successfully: <a href="${filePath}">${filePath}</a>`);
-  } catch (err) {
-    res.status(500).send(err.message);
   }
-});
+)
 
-module.exports = router;
+module.exports = router

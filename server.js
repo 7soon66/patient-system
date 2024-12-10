@@ -19,7 +19,7 @@ const Urgency = require('./models/urgency')
 // upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './usersImage')
+    cb(null, 'usersImage')
   },
 
   filename: (req, file, cb) => {
@@ -79,8 +79,9 @@ app.use(
   })
 )
 app.use(passUsertoView)
-app.use('/profile-pictures', profilePictureRoutes)
 app.use('/uploads', express.static('public/uploads'))
+app.use(profilePictureRoutes)
+
 // Set view engine
 app.set('view engine', 'ejs')
 
@@ -100,12 +101,3 @@ app.get('/', (req, res) => {
 app.get('/upload', (req, res) => {
   res.render('upload')
 })
-
-app.post('/upload', upload.single('image'), (req, res) => {
-  res.send('Image Upload')
-})
-
-// Start server
-app.listen(PORT, () => {
-  console.log(`The Express app is running on port ${PORT}`);
-});

@@ -15,10 +15,12 @@
       <label for="name" id="name-edit">Name:</label>
       <input type="text" class="edit-name" id="name" name="name" value="<%= patient.name %>" required>
     </div>
+    
     <div>
       <label for="age" id="age-edit">Age:</label>
       <input type="number" class="edit-age" id="age" name="age" value="<%= patient.age %>" required>
     </div>
+    
     <div>
       <label for="gender" id="gender-edit">Gender:</label>
       <select class="edit-gender" id="gender" name="gender" required>
@@ -27,17 +29,19 @@
         <option value="Other" <%= patient.gender === 'Other' ? 'selected' : '' %>>Other</option>
       </select>
     </div>
+    
     <div>
       <label for="cprId" id="cpr-edit">CPR ID:</label>
       <input type="text" class="edit-cpr" id="cprId" name="cprId" value="<%= patient.cprId %>" required>
     </div>
+    
     <div>
       <label for="department" id="department-edit">Department:</label>
       <select class="edit-department" id="department" name="department" required>
         <% departments.forEach(department => { %>
-        <option value="<%= department._id %>" <%= patient.department.equals(department._id) ? 'selected' : '' %>>
-          <%= department.name %> - <%= department.description %>
-        </option>
+          <option value="<%= department._id %>" <%= patient.department.equals(department._id) ? 'selected' : '' %>>
+            <%= department.name %> - <%= department.description %>
+          </option>
         <% }) %>
       </select>
     </div>
@@ -103,52 +107,12 @@
       <label for="urgencyLevel">Urgency Level:</label>
       <select id="urgencyLevel" name="urgencyLevel" required>
         <% urgencies.forEach(urgency => { %>
-        <option value="<%= urgency._id %>" <%= patient.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
-          <%= urgency.level %>
-        </option>
+          <option value="<%= urgency._id %>" <%= patient.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
+            <%= urgency.level %>
+          </option>
         <% }) %>
       </select>
     </div>
-
-    <h3>Edit Visitation Logs</h3>
-    <% if (patient.visitationLogs && patient.visitationLogs.length > 0) { %>
-    <% patient.visitationLogs.forEach((log, index) => { %>
-    <form action="/patients/<%= patient._id %>/log/<%= log._id %>?_method=PUT" method="POST">
-      <div>
-        <label for="logDepartment-<%= index %>">Department:</label>
-        <select id="logDepartment-<%= index %>" name="department" required>
-          <% departments.forEach(department => { %>
-          <option value="<%= department._id %>" <%= log.department.equals(department._id) ? 'selected' : '' %>>
-            <%= department.name %>
-          </option>
-          <% }) %>
-        </select>
-      </div>
-      <div>
-        <label for="logUrgencyLevel-<%= index %>">Urgency Level:</label>
-        <select id="logUrgencyLevel-<%= index %>" name="urgencyLevel" required>
-          <% urgencys.forEach(urgency => { %>
-          <option value="<%= urgency._id %>" <%= log.urgencyLevel.equals(urgency._id) ? 'selected' : '' %>>
-            <%= urgency.level %>
-          </option>
-          <% }) %>
-        </select>
-      </div>
-      <div>
-        <label for="logSummary-<%= index %>">Summary:</label>
-        <textarea id="logSummary-<%= index %>" name="summary" rows="4" cols="50"><%= log.summary %></textarea>
-      </div>
-      <div>
-        <label for="logDate-<%= index %>">Date:</label>
-        <input type="date" id="logDate-<%= index %>" name="date" value="<%= log.date.toISOString().split('T')[0] %>" required>
-      </div>
-      <button type="submit">Update Log</button>
-    </form>
-    <hr>
-    <% }) %>
-    <% } else { %>
-    <p>No visitation logs available.</p>
-    <% } %>
 
     <button type="submit">Update Patient</button>
   </form>

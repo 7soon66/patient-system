@@ -1,14 +1,21 @@
-<head>
-  <link rel="stylesheet" href="/stylesheets/style.css">
-  <title>Document</title>
-</head>
-<body id="navbar">  
-<% if (user) { %>
-  <a href="/" id="home-link">Home</a>
-  <a href="/patients" id="view-link">View all Patients</a>
-  <a href="/auth/sign-out" id="sign-out-link">Sign Out</a>
-<% } else { %>
-  <a href="/auth/sign-up" id="sign-up-link">Sign Up</a>
-  <a href="/auth/sign-in" id="sign-in-link">Sign In</a>
-<% } %>
-</body>
+<nav id="navbar">
+  <% if (user) { %>
+  <div>
+    <!-- Profile link with picture and username -->
+    <a href="/auth/profile"></span>
+      <img src="<%= user.profilePicture %>"  width="40" height="40" style="border-radius: 50%;">
+
+     
+
+  <!-- Existing navigation options -->
+  <a href="/">Home</a>
+  <a href="/patients">View Patients</a>
+  <% if (user.role === 'Admin') { %>
+  <a href="/patients/new">Add New Patient</a>
+  <% } %>
+  <a href="/auth/sign-out">Sign Out</a>
+  <% } else { %>
+  <a href="/auth/sign-up">Sign Up</a>
+  <a href="/auth/sign-in">Sign In</a>
+  <% } %>
+</nav>
