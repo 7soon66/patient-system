@@ -1,25 +1,6 @@
 <head>
   <title>Profile</title>
-  <style>
-    .profile-container {
-      text-align: center;
-      margin: 20px;
-    }
-    .profile-picture {
-      border-radius: 50%;
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      margin-bottom: 10px;
-    }
-    .form-container {
-      margin: 20px auto;
-      width: 300px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
 <body>
   <%- include('./partials/_navbar.ejs') %>
@@ -27,8 +8,9 @@
   <div class="profile-container">
     <h1>User Profile</h1>
     <img
-      src="<%= user.profilePicture || '/default-profile.png' %>"
-      class="profile-picture"
+      src="<%= user.profilePicture %>"
+      alt="Profile Picture"
+      style="border-radius: 50%; width: 100px; height: 100px"
     />
 
     <h2>Welcome, <%= user.username %></h2>
@@ -44,8 +26,5 @@
       <input type="file" name="profilePicture" accept="image/*" required />
       <button type="submit">Upload</button>
     </form>
-      <br>
-
-      <a href="./auth/resetpass.ejs">reset pass</a>
+  </div>
 </body>
-
