@@ -11,20 +11,35 @@
     <img
       src="<%= user.profilePicture || '/default-profile.png' %>"
       class="profile-picture"
-    />
-
-    <h2>Welcome, <%= user.username %></h2>
+/>
+    
+<% if (user) { %>
+  <h2 id="h2-wlc">Welcome, <%= user.name || user.username %></h2>
+  <% } %>
+  
   </div>
 
   <div class="form-container">
-    <h3>Update Profile Picture</h3>
+    <h3 id="h3-update">Update Profile Picture</h3>
     <form
       action="/profile-picture/upload"
+      id="test"
       method="POST"
       enctype="multipart/form-data"
     >
-      <input type="file" name="profilePicture" accept="image/*" required />
-      <button type="submit">Upload</button>
-    </form>
+      <input type="file" id="image-input" name="profilePicture" accept="image/*" required />
+      <button type="submit" id="submit-upload">Upload</button>
+    
+<div id="profile-info">
+  <p><strong>Name:</strong> <%= user.name %></p>
+  <p><strong>Age:</strong> <%= user.age %></p>
+  <p><strong>Gender:</strong> <%= user.gender %></p>
+  <p><strong>CPR ID:</strong> <%= user.cprId %></p>
+
+
+
+
+</div>
+</form>
     </div>
   </body>
