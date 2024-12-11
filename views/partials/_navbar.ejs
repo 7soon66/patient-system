@@ -2,16 +2,26 @@
   <% if (user) { %>
   <div>
     <div id="profile-icon">
-    <a href="/auth/profile"></span>
-      <img src="<%= user.profilePicture %>" id="profile-image"  width="60" height="60" style="border-radius: 50%;">
-</div>
-  <!-- Existing navigation options -->
-  <a href="/" id="home-link">Home</a>
-  <a href="/patients" id="view-link">View Patients</a>
-  <!-- <% if (user.role === 'Admin') { %>
-  <a href="/patients/new">Add New Patient</a>
-  <% } %> -->
-  <a href="/auth/sign-out" id="sign-out-link">Sign Out</a>
+      <a href="/auth/profile">
+        <img
+          src="<%= user.profilePicture %>"
+          id="profile-image"
+          width="60"
+          height="60"
+          style="border-radius: 50%"
+        />
+      </a>
+    </div>
+    <a href="/" id="home-link">Home</a>
+
+    <% if (user.role === 'Admin') { %>
+    <a href="/patients" id="view-link">View All Patients</a>
+    <% } else if (user.role === 'Patient') { %>
+    <a href="/patients/me" id="my-info-link">My Info</a>
+    <% } %>
+
+    <a href="/auth/sign-out" id="sign-out-link">Sign Out</a>
+  </div>
   <% } else { %>
   <div>
     <a href="/auth/sign-up" id="sign-up-link">Sign Up</a>
