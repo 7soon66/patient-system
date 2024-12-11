@@ -123,8 +123,8 @@ router.post('/resetpass', async (req, res) => {
 
     const user = await User.findByIdAndUpdate(
       req.session.user._id,
-      hashedPassword,
-      { new: true }
+      {password:hashedPassword,
+      }, {new: true}
     )
 
     res.redirect('/auth/profile')
