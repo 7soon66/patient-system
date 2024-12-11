@@ -85,9 +85,8 @@ router.get('/profile', isSignedIn, async (req, res) => {
       : await Patient.findOne({ cprId: req.session.user.username })
 
     if (!userOrPatient) {
-      return res.send('User not found.')
+      return res.send('User not found.');
     }
-
     req.session.user.profilePicture = userOrPatient.profilePicture?.data
       ? `/profile-picture/${userOrPatient._id}`
       : '/uploads/default-profile.png'
@@ -100,8 +99,8 @@ router.get('/profile', isSignedIn, async (req, res) => {
 
     res.render('profile.ejs', { user: res.locals.user })
   } catch (err) {
-    console.error('Error loading profile page:', err)
-    res.send('Internal Server Error.')
+    console.error('Error loading profile page:', err);
+    res.send('Internal Server Error.');
   }
 })
 

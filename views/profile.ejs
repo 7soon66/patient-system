@@ -6,7 +6,7 @@
   <%- include('./partials/_navbar.ejs') %>
 
   <div class="profile-container">
-    <h1>User Profile</h1>
+    <h1 id="h1-profile-user">User Profile</h1>
     <img
       src="<%= user.profilePicture || '/default-profile.png' %>"
       class="profile-picture"
@@ -30,15 +30,13 @@
       <button type="submit" id="submit-upload">Upload</button>
     
 <div id="profile-info">
+  <%console.log(user.name) %>
   <p><strong>Name:</strong> <%= user.name %></p>
   <p><strong>Age:</strong> <%= user.age %></p>
   <p><strong>Gender:</strong> <%= user.gender %></p>
   <p><strong>CPR ID:</strong> <%= user.cprId %></p>
+  <a href="/auth/resetpass" id="res-pas-link">Reset Password</a>
 </div>
 </form>
-    </div>
-      <div class="form-container">
-        <h3>Reset Password</h3>
-        <a href="/auth/resetpass">Reset Password</a>
-      </div>
+   
 </body>
