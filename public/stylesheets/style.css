@@ -62,7 +62,13 @@
     left: 30px;
     bottom: 60px;
 }
-
+#my-info-link{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    left: 30px;
+    bottom: 60px;
+}
 #sign-out-link
 {
     color: aqua;
