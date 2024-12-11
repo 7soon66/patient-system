@@ -11,25 +11,36 @@ router.get('/sign-up', (req, res) => {
 
 // POST: sign-up submission
 router.post('/sign-up', async (req, res) => {
-  const { username, password } = req.body
+  const { username, password, confirmPassword } = req.body;
+
   try {
-    if (!username || !password)
-      return res.send('Username and password required.')
+    if (!username || !password || !confirmPassword) {
+      return res.send('Username, password, and confirm password are required.');
+    }
 
-    const patient = await Patient.findOne({ cprId: username })
-    if (!patient) return res.send('Invalid CPR ID.')
+    // Check password confirmation
+    if (password !== confirmPassword) {
+      return res.send('Passwords do not match.');
+    }
 
-    const existingUser = await User.findOne({ username })
-    if (existingUser) return res.send('Username exists.')
+    const patient = await Patient.findOne({ cprId: username });
+    if (!patient) {
+      return res.send('Invalid CPR ID.');
+    }
 
-    const hashedPassword = await bcrypt.hash(password, 10)
-    await User.create({ username, password: hashedPassword, role: 'Patient' })
-    res.redirect('/auth/sign-in')
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.send('Username exists.');
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await User.create({ username, password: hashedPassword, role: 'Patient' });
+    res.redirect('/auth/sign-in');
   } catch (err) {
-    console.error(err)
-    res.send('Error signing up.')
+    console.error(err);
+    res.send('Error signing up.'); // Consider providing more specific error messages for better user experience
   }
-})
+});
 
 // GET: sign-in form
 router.get('/sign-in', (req, res) => {
@@ -38,35 +49,31 @@ router.get('/sign-in', (req, res) => {
 
 // POST: sign-in submission
 router.post('/sign-in', async (req, res) => {
-  const { username, password } = req.body
+  const { username, password } = req.body;
+
   try {
-    const admin = await User.findOne({ username, role: 'Admin' })
-    if (admin) {
-      const isMatch = await bcrypt.compare(password, admin.password)
-      if (isMatch) {
-        req.session.user = admin
-        return res.redirect('/')
-      }
-      return res.send('Invalid password.')
+    const user = await User.findOne({ username }); // Find user by username
+
+    if (!user) {
+      return res.send('Invalid username or CPR ID.'); // Inform about invalid username
     }
 
-    const patient = await Patient.findOne({ cprId: username })
-    if (patient) {
-      req.session.user = {
-        username,
-        role: 'Patient',
-        _id: patient._id,
-        profilePicture: patient.profilePicture
-      }
-      return res.redirect('/patients/me')
+    const isMatch = await bcrypt.compare(password, user.password); // Compare password
+
+    if (!isMatch) {
+      return res.send('wrong info entred.'); // Inform about incorrect password
     }
 
-    res.send('Invalid username or CPR ID.')
+    // Successful login logic
+    req.session.user = user; // Store user data in session
+    const redirectPath = user.role === 'Admin' ? '/' : '/patients/me'; // Redirect based on role
+
+    res.redirect(redirectPath);
   } catch (err) {
-    console.error(err)
-    res.send('Error signing in.')
+    console.error(err);
+    res.send('Error signing in.');
   }
-})
+});
 
 // GET: sign-out
 router.get('/sign-out', (req, res) => {
