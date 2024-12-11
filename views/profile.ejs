@@ -2,7 +2,7 @@
   <title>Profile</title>
   <link rel="stylesheet" href="/stylesheets/style.css" />
 </head>
-<body>
+<body class="page">
   <%- include('./partials/_navbar.ejs') %>
 
   <div class="profile-container">
@@ -34,19 +34,9 @@
   <p><strong>Age:</strong> <%= user.age %></p>
   <p><strong>Gender:</strong> <%= user.gender %></p>
   <p><strong>CPR ID:</strong> <%= user.cprId %></p>
-
-
-
-
 </div>
 </form>
     </div>
-  </body>
-      <input type="file" name="profilePicture" accept="image/*" required />
-      <button type="submit">Upload</button>
-    </form>
-      <br>
-
       <div class="form-container">
         <h3>Reset Password</h3>
         <a href="/auth/resetpass">Reset Password</a>
