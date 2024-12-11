@@ -78,6 +78,15 @@
     bottom: 60px;
 }
 
+#my-info-link
+{
+    color: aqua;
+    font-size: 30px;
+    position: relative;
+    bottom: 60px;
+    left: 35px;
+}
+
 #profile-icon
 {
     position: relative;
@@ -166,6 +175,11 @@
     font-size: 15px;
 }
 
+#res-pas-link
+{
+    color: aqua;
+    font-size: 20px;
+}
 
 /* sign-in */
 
@@ -840,6 +854,56 @@
     border: 4px solid #FCF5C7
 }
 
+/* reset password */
+#new-pass
+{
+    position: relative;
+    left: 400px;
+    top: 250px;
+    color: #FCF5C7;
+    font-size: 35px;
+}
+
+.new-pass-input
+{
+    position: relative;
+    left: 400px;
+    top: 245px;
+    width: 500px;
+    height: 30px;
+}
+
+#con-pass
+{
+    position: relative;
+    right: 380px;
+    top: 350px;
+    color: #FCF5C7;
+    font-size: 35px;
+}
+
+#confirmPassword
+{
+    width: 500px;
+    height: 30px;
+    position: relative;
+    right: 380px;
+    top: 352px;
+}
+
+#res-pass-botton
+{
+    width: 300px;
+    height: 40px;
+    font-size: 25px;
+    position: relative;
+    top: 390px;
+    left: 700px;
+    background-color: #53B3CB;
+    border-radius: 12px;
+    border: 4px solid #FCF5C7
+    
+}
 
 
 
