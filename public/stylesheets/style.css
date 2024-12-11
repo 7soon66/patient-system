@@ -160,6 +160,11 @@
     font-size: 15px;
 }
 
+#res-pas-link
+{
+    color: aqua;
+    font-size: 20px;
+}
 
 /* sign-in */
 
@@ -834,6 +839,30 @@
     border: 4px solid #FCF5C7
 }
 
+/* reset password */
+
+.res-page
+{
+    position: relative;
+    top: 100px;
+    left: 350px;
+    padding: 10px;
+}
+
+#new-pass
+{
+    position: relative;
+    left: 400px;
+    top: 250px;
+    color: #FCF5C7;
+    font-size: 30px;
+}
+
+.new-pass-input
+{
+    position: relative;
+    
+}
 
 
 

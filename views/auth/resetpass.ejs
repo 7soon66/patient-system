@@ -1,9 +1,18 @@
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <title>Reset password</title>
+</head>
+
+<body class="page">
+  <div id="res-page">
 <form action="/auth/resetpass" method="POST">
-  <label for="newPassword">New Password:</label>
-  <input type="password" id="newPassword" name="newPassword" required>
+  <label for="newPassword" id="new-pass">New Password:</label>
+  <input type="password" class="new-pass-input" id="newPassword" name="newPassword" required>
 
-  <label for="confirmPassword">Confirm Password:</label>
-  <input type="password" id="confirmPassword" name="confirmPassword" required>
+  <label for="confirmPassword" id="con-pass">Confirm Password:</label>
+  <input type="password" class="con-pass-input" id="confirmPassword" name="confirmPassword" required>
 
-  <button type="submit">Reset Password</button>
+  <button type="submit" id="res-pass-botton">Reset Password</button>
 </form>
+</div>
+</body>
