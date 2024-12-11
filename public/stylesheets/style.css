@@ -1,3 +1,4 @@
+
 .page 
 {
     background-image: url('../image/Background.jpeg');
@@ -50,7 +51,7 @@
     font-size: 30px;
     position: relative;
     left: 10px;
-    bottom: 30px;
+    bottom: 60px;
 }
 
 #view-link
@@ -59,7 +60,7 @@
     font-size: 30px;
     position: relative;
     left: 30px;
-    bottom: 30px;
+    bottom: 60px;
 }
 
 #sign-out-link
@@ -68,7 +69,7 @@
     font-size: 30px;
     position: relative;
     left: 50px;
-    bottom: 30px;
+    bottom: 60px;
 }
 
 #profile-icon
@@ -78,12 +79,19 @@
     top: 20px;
 }
 
+#profile-image
+{
+    border: 5px solid #FCF5C7;
+}
+
 /* profile */
 
 .profile-container
 {
     text-align: center;
     margin: 20px;
+    position: relative;
+    bottom: 34px;
 }
 .profile-picture
 {
@@ -106,8 +114,52 @@
 #h1-profile-user
 {
     color: #FCF5C7;
-    font-size: 40px;
+    font-size: 45px;
 }
+
+#h2-wlc
+{
+    color: #FCF5C7;
+    font-size: 30px;
+}
+
+#h3-update
+{
+    color: #FCF5C7;
+    font-size: 20px;
+    position: relative;
+    left: 50px;
+    bottom: 20px;
+}
+
+#h3-update
+{
+    color: #FCF5C7;
+}
+
+#test
+{
+    color: #FCF5C7;
+    font-size: 15px;
+    position: relative;
+    bottom: 20px;
+}
+
+#submit-upload
+{
+    position: relative;
+    left: 240px;
+    bottom: 21px;
+    
+}
+
+#profile-info
+{
+    position: relative;
+    bottom: 10px;
+    font-size: 15px;
+}
+
 
 /* sign-in */
 
@@ -351,11 +403,13 @@
     text-align: center;
 }
 
-#view-link
+#views-link
 {
     color: aqua;
     font-size: 25px;
     font-weight: bold;
+    position: relative;
+    left: 25px;
 }
 
 #edit-link
