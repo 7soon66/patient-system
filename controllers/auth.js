@@ -18,7 +18,6 @@ router.post('/sign-up', async (req, res) => {
       return res.send('Username, password, and confirm password are required.');
     }
 
-    // Check password confirmation
     if (password !== confirmPassword) {
       return res.send('Passwords do not match.');
     }
@@ -38,7 +37,7 @@ router.post('/sign-up', async (req, res) => {
     res.redirect('/auth/sign-in');
   } catch (err) {
     console.error(err);
-    res.send('Error signing up.'); // Consider providing more specific error messages for better user experience
+    res.send('Error signing up.');e
   }
 });
 
@@ -52,21 +51,19 @@ router.post('/sign-in', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ username }); // Find user by username
-
+    const user = await User.findOne({ username });
     if (!user) {
-      return res.send('Invalid username or CPR ID.'); // Inform about invalid username
+      return res.send('Invalid username or CPR ID.');
     }
 
-    const isMatch = await bcrypt.compare(password, user.password); // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      return res.send('wrong info entred.'); // Inform about incorrect password
+      return res.send('wrong info entred.');
     }
 
-    // Successful login logic
-    req.session.user = user; // Store user data in session
-    const redirectPath = user.role === 'Admin' ? '/' : '/patients/me'; // Redirect based on role
+    req.session.user = user;
+    const redirectPath = user.role === 'Admin' ? '/' : '/patients/me'; 
 
     res.redirect(redirectPath);
   } catch (err) {
