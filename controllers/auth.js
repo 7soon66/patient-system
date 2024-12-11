@@ -52,7 +52,12 @@ router.post('/sign-in', async (req, res) => {
 
     const patient = await Patient.findOne({ cprId: username })
     if (patient) {
-      req.session.user = { username, role: 'Patient',_id:patient._id, profilePicture: patient.profilePicture }
+      req.session.user = {
+        username,
+        role: 'Patient',
+        _id: patient._id,
+        profilePicture: patient.profilePicture
+      }
       return res.redirect('/patients/me')
     }
 
@@ -86,45 +91,42 @@ router.get('/profile', isSignedIn, async (req, res) => {
     }
     req.session.user.profilePicture = userOrPatient.profilePicture?.data
       ? `/profile-picture/${userOrPatient._id}`
-      : '/uploads/default-profile.png';
+      : '/uploads/default-profile.png'
+
     res.render('profile.ejs', {
       user: {
         ...userOrPatient.toObject(),
         profilePicture: req.session.user.profilePicture
       }
-    });
+    })
   } catch (err) {
     console.error('Error loading profile page:', err);
     res.send('Internal Server Error.');
   }
-});
+})
+
+// GET: Render the password reset form
 router.get('/resetpass', (req, res) => {
   res.render('auth/resetpass.ejs')
 })
 
-
-router.get('/resetpass', (req, res) => {
-  res.render('auth/resetpass.ejs');
-});
-
-
+// POST: Handle password reset submission
 router.post('/resetpass', async (req, res) => {
-  const { newPassword, confirmPassword } = req.body;
+  const { newPassword, confirmPassword } = req.body
 
   if (newPassword !== confirmPassword) {
-    // Handle password mismatch error
-    res.render('profile/resetpass', { error: 'Passwords do not match' });
+    res.render('profile/resetpass', { error: 'Passwords do not match' })
   } else {
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const hashedPassword = await bcrypt.hash(newPassword, 10)
 
     const user = await User.findByIdAndUpdate(
       req.session.user._id,
       hashedPassword,
       { new: true }
     )
-    
-    res.redirect('/auth/profile'); // Redirect to profile page after successful reset
+
+    res.redirect('/auth/profile')
   }
-});
+})
 
 module.exports = router
