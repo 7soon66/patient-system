@@ -7,6 +7,7 @@
 *Abdullah khalid*
 
 *Abdulrahman Alaam*
+
 ## Project Description
 Our project is a patient management system where employees can:
 - Sign in using unique accounts.
@@ -51,3 +52,16 @@ This system ensures smooth navigation and role-based access for administrators a
 
 ### Edit Patient Details
 ![Edit Details](pictures/edit-info-details.JPG)
+
+
+### Our trello:
+
+**https://trello.com/invite/b/67515ac4d7b3ab49767cbec8/ATTI714007e59be3ba0e2c62ec806b96848454AFC1FB/project-2**
+
+## Future Enhancment:
+
+* To add more admins.
+
+* Adding a search bar.
+
+* Adding a Booking for the appointments with DR's and adding slot which each DR can add his available timing or slot so his patients can book an appointment.
