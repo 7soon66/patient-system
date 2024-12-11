@@ -1,67 +1,111 @@
-# Patient System
+# Patient Management System Documentation
 
-### Names:
+## Team Members
 
-*Hussain almajed*
+- **Hussain Almajed**
+- **Abdullah Khalid**
+- **Abdulrahman Alaam**
 
-*Abdullah khalid*
+## Project Overview
 
-*Abdulrahman Alaam*
+The Patient Management System is designed to streamline patient administration by enabling:
 
-## Project Description
-Our project is a patient management system where employees can:
-- Sign in using unique accounts.
-- Register patients based on their case level and desired department.
-- View, edit, and delete patient details.
+- **Employee Features:**
+  - Secure sign-in with unique accounts.
+  - Patient registration by case level and department.
+  - Full control over patient records (view, edit, delete).
+- **System Highlights:**
+  - Smooth navigation across pages.
+  - Role-based access for administrators and patients.
 
-This system ensures smooth navigation and role-based access for administrators and patients.
+## Features Overview
 
-## User Stories
-- As a user, I want to have a unique username so no one else can use my username.
-- As a user, I want to view all patients on the index page.
-- As a user, I want to view patient details, making it easy to edit and update information.
-- As a user, I want to delete patient accounts with ease.
-- As a user, I want smooth navigation between pages.
-- As a user, I want to sign out so no one can misuse my account.
+### User Stories:
 
-## ERD
-![ERD Diagram](pictures/image-720.png)
+1. Unique usernames for all users.
+2. View all registered patients on the index page.
+3. Detailed view for editing or updating patient information.
+4. Easy account deletion functionality.
+5. Intuitive navigation between system pages.
+6. Ability to sign out for account security.
+
+## Entity Relationship Diagram (ERD)
+
+![ERD Diagram](pictures\image-720.png)
 
 ## Wireframes (Prototype)
 
-### Home Page
-![Home Page](pictures/home.JPG)
+- **Home Page**  
+  ![Home Page](pictures\wireframes\home.JPG)
 
-### Sign-Up Page
-![Sign-Up Page](pictures/sign-up.JPG)
+- **Sign-Up Page**  
+  ![Sign-Up Page](pictures\wireframes\sign-up.JPG)
 
-### Sign-In Page
-![Sign-In Page](pictures/sign-in.JPG)
+- **Sign-In Page**  
+  ![Sign-In Page](pictures\wireframes\sign-in.JPG)
 
-### Index Page (Welcome)
-![Index Page](pictures/main.JPG)
+- **Index Page (Welcome)**  
+  ![Index Page](pictures\wireframes\main.JPG)
 
-### View All Patients Page
-![All Patients](pictures/all-patients.JPG)
+- **View All Patients Page**  
+  ![All Patients](pictures\wireframes\all-patients.JPG)
 
-### Add Patient Page
-![Add Patient](pictures/add-pateints.JPG)
+- **Add Patient Page**  
+  ![Add Patient](pictures\wireframes\add-pateints.JPG)
 
-### Patient Details Page
-![Patient Details](pictures/pateint-details.JPG)
+- **Patient Details Page**  
+  ![Patient Details](pictures\wireframes\pateint-details.JPG)
 
-### Edit Patient Details
-![Edit Details](pictures/edit-info-details.JPG)
+- **Edit Patient Details Page**  
+  ![Edit Details](pictures\wireframes\edit-info-details.JPG)
 
+## Trello Board
 
-### Our trello:
+[**Project Management on Trello**](https://trello.com/invite/b/67515ac4d7b3ab49767cbec8/ATTI714007e59be3ba0e2c62ec806b96848454AFC1FB/project-2)
 
-**https://trello.com/invite/b/67515ac4d7b3ab49767cbec8/ATTI714007e59be3ba0e2c62ec806b96848454AFC1FB/project-2**
+## Final Website Design
 
-## Future Enhancment:
+### Admin Panel
 
-* To add more admins.
+1. **Home Page**  
+   ![Home Page](pictures\website\home.PNG)
 
-* Adding a search bar.
+2. **Sign-Up Page**  
+   ![Sign-Up Page](pictures\website\sign-up.PNG)
 
-* Adding a Booking for the appointments with DR's and adding slot which each DR can add his available timing or slot so his patients can book an appointment.
+3. **Sign-In Page**  
+   ![Sign-In Page](pictures\website\sign-in.PNG)
+
+4. **Index Page (Welcome)**  
+   ![Index Page](pictures\website\main.PNG)
+
+5. **View All Patients Page**  
+   ![All Patients](pictures\website\all-patients.PNG)
+
+6. **Add Patient Page**  
+   ![Add Patient](pictures\website\add-pateints.PNG)
+
+7. **Patient Details Page**  
+   ![Patient Details](pictures\website\pateint-details.PNG)
+
+8. **Edit Patient Details Page**  
+   ![Edit Details](pictures\website\edit-info-details.PNG)
+
+9. **Admin Profile Page**  
+   ![Profile](pictures\website\admin-profile.PNG)
+
+### Patient Panel
+
+1. **Patient Personal Info Page**  
+   ![Patient Info](pictures\website\my-info.PNG)
+
+2. **Patient Profile Page**  
+   ![Profile](pictures\website\patient-profile.PNG)
+
+## Future Enhancements
+
+- Add support for multiple administrators.
+- Implement a search bar for quicker navigation.
+- Appointment booking system:
+  - Doctors to manage available time slots.
+  - Patients to book appointments seamlessly.

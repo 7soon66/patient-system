@@ -28,13 +28,15 @@
     >
       <input type="file" id="image-input" name="profilePicture" accept="image/*" required />
       <button type="submit" id="submit-upload">Upload</button>
-    
+
+
 <div id="profile-info">
-  <%console.log(user.name) %>
+  <% if (user.role === 'Patient') { %>
   <p><strong>Name:</strong> <%= user.name %></p>
   <p><strong>Age:</strong> <%= user.age %></p>
   <p><strong>Gender:</strong> <%= user.gender %></p>
   <p><strong>CPR ID:</strong> <%= user.cprId %></p>
+  <% } %>
   <a href="/auth/resetpass" id="res-pas-link">Reset Password</a>
 </div>
 </form>
