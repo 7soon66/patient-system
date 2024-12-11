@@ -1,5 +1,12 @@
 # Patient System
 
+### Names:
+
+*Hussain almajed*
+
+*Abdullah khalid*
+
+*Abdulrahman Alaam*
 ## Project Description
 Our project is a patient management system where employees can:
 - Sign in using unique accounts.
