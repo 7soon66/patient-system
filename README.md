@@ -4,7 +4,7 @@
 
 - **Hussain Almajed**
 - **Abdullah Khalid**
-- **Abdulrahman Alaam**
+- **Abdulrahman Alam**
 
 ## Project Overview
 
