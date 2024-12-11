@@ -33,7 +33,7 @@
         <td id="info-department"><%= patient.department.name %></td>
         <% if (user.role === 'Admin') { %>
         <td id="info-actions">
-          <a href="/patients/<%= patient._id %>" id="view-link">View</a>
+          <a href="/patients/<%= patient._id %>" id="views-link">View</a>
           <a href="/patients/<%= patient._id %>/edit" id="edit-link">Edit</a>
           <form
             action="/patients/<%= patient._id %>?_method=DELETE"

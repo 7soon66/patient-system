@@ -1,68 +1,46 @@
-# patient-system
+# Patient System
 
+## Project Description
+Our project is a patient management system where employees can:
+- Sign in using unique accounts.
+- Register patients based on their case level and desired department.
+- View, edit, and delete patient details.
 
-## Project describtion:
+This system ensures smooth navigation and role-based access for administrators and patients.
 
-* Our project is an patient system where we as users(employees) have an account to sign-in with, also we have to recive a patient where we register them and based on the level of 
-case and the department he want to go for , then we can view the details of the patient which we can edit and delete.
+## User Stories
+- As a user, I want to have a unique username so no one else can use my username.
+- As a user, I want to view all patients on the index page.
+- As a user, I want to view patient details, making it easy to edit and update information.
+- As a user, I want to delete patient accounts with ease.
+- As a user, I want smooth navigation between pages.
+- As a user, I want to sign out so no one can misuse my account.
 
+## ERD
+![ERD Diagram](pictures/image-720.png)
 
-## user stories:
+## Wireframes (Prototype)
 
-* -as a user i want to have a uniqe username where no one can have a username as my username.
+### Home Page
+![Home Page](pictures/home.JPG)
 
-* -as a user i want to view all the patients in the index page.
+### Sign-Up Page
+![Sign-Up Page](pictures/sign-up.JPG)
 
-* -as a user i want to view the details of the patients and so i can edit them and update them easiley.
+### Sign-In Page
+![Sign-In Page](pictures/sign-in.JPG)
 
-* -as a user i want to delete a patient account easily.
+### Index Page (Welcome)
+![Index Page](pictures/main.JPG)
 
-* -as a user when i want to move smothely between pages so my navigation between pages be easy.
+### View All Patients Page
+![All Patients](pictures/all-patients.JPG)
 
-* -as a user i want to sign out so no one can use my account.
+### Add Patient Page
+![Add Patient](pictures/add-pateints.JPG)
 
+### Patient Details Page
+![Patient Details](pictures/pateint-details.JPG)
 
-
-
-
-## ERD:
-!["ERD diagram"](image-720.png)
-
-
-## wireframes (prototype)
-
-### Home page
-
-!["home page"](home.JPG) 
-
-
-### sign-up page
-
-!["Sign up page"](sign-up.JPG) 
-
-
-### sign-in page
-
-!["sign in page"](sign-in.JPG) 
-
-
-### index page (welcome)
-
-!["index page"](main.JPG) 
-
-
-### view all patients page
-
-!["all patient"](all-patients.JPG) 
-
-### add pateint page
-
-!["Image description"](add-pateints.JPG) 
-
-### patient details page
-
-!["patients details"](pateint-details.JPG) 
-
-### edit patient details
-
-!["Image description"](edit-info-details.JPG) 
+### Edit Patient Details
+![Edit Details](pictures/edit-info-details.JPG)
